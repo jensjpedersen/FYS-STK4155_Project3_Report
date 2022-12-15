@@ -1,0 +1,128 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Methods}
+\paragraph{Resources Hyperlinks} 
+\begin{itemize}
+    \item \href{https://www.kaggle.com/code/rafjaa/dealing-with-very-small-datasets}{Dealing with very small datasets | Kaggle}
+    
+\end{itemize}
+
+
+
+
+\paragraph{Overview} 
+\begin{enumerate}
+    \item Identify good features by visual inspection 
+    \item Feature reduction:
+        \begin{itemize}
+            \item Manual:
+                \begin{itemize}
+                    \item Remove correlated features
+                \end{itemize}
+                
+            \item Automatic:
+                \begin{itemize}
+                    \item Iterate all the features and find best model 
+                \end{itemize}
+                
+        \end{itemize}
+        
+    \item Evaluate results and find the best ML classification algorithm for dataset 
+    
+\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Feature section}
+\begin{itemize}
+    \item not correlated
+    \item highly dependent on target variable 
+\end{itemize}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Dataset and model selection}
+\begin{itemize}
+    \item Bagging - Bootstrap aggregation
+    \item Random forest
+\end{itemize}
+
+\begin{itemize}
+    \item Sparse data $ \rightarrow $ Focus on simple ML methods
+    \item ML classification algorithms suited for sparse data: 
+        \begin{itemize}
+            \item SVM
+        \end{itemize}
+        
+\end{itemize}
+
+
+
+\paragraph{ANOVA} 
+Used to select features that is highly dependent on the target variable
+\cite{anova}. 
+
+
+
+\subsubsection{Random forest}
+% Random forest uses bagging
+\begin{itemize}
+    \item Bootstrap dataset
+    \item Create decision for dataset with random features 
+\end{itemize}
+
+\paragraph{Decision trees} 
+
+
+
+% \paragraph{Bagging} 
+% purpose: reduce variance
+
+
+
+
+\paragraph{Algorithm} 
+
+% Random forest algorithm - cite lecture 44
+\fbox{\begin{minipage}{30em}
+We will grow of forest of say $\bm{B}$ trees.
+
+For b=1:B
+
+Draw a bootstrap sample from the training data organized in our $\boldsymbol{X}$ matrix.
+
+We grow then a random forest tree $T_b $
+based on the bootstrapped data by repeating the steps outlined till we reach
+the maximum node size is reached
+
+we select $m \leq p$  variables at random from the p predictors/features
+
+pick the best split point among the $m$ features using for example the CART
+algorithm and create a new node
+
+split the node into daughter nodes
+
+Output then the ensemble of trees $\{T_b\}^B_1$
+
+and make predictions for either a regression type of problem or a
+classification type of problem.
+
+
+\end{minipage}}
+
+
+\href{https://towardsdatascience.com/feature-selection-using-random-forest-26d7b747597f}{Feature Selection Using Random forest | by Akash Dubey | Towards Data Science}
+
+
+
+
+\subsubsection{SVM}
+
+
+
+
+
+
+
+

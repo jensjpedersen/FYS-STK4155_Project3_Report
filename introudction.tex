@@ -1,0 +1,63 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+
+
+
+\paragraph{Purpose} 
+\begin{itemize}
+    \item Implement ML algorithms for automatic feature reduction in classification
+        problem
+    \item Use non-automatic methods; correlation matrix, simple similarity
+        measures to select features with best separability   
+
+    \item Compare Results from non-automatic and automatic methods
+\end{itemize}
+
+
+
+\begin{itemize}
+    \item Explore ML algorithms suited for classification on spares data  
+    \item Feature reduction and find optimal set of feature for classification
+    \item Classification Data: 
+        \begin{itemize}
+            \item Cancer data with 17 tumors
+            \item Each tumor is reconstructed with 3 different scanner
+                reconstruction methods, our classes 
+            \item Thus, tot. data = 17*3
+            \item Different features is extracted from images   
+        \end{itemize}
+        
+\end{itemize}
+
+
+\paragraph{Approach} 
+\paragraph{Manual feature selection} 
+\begin{itemize}
+    \item First we will use visualization techniques to identify good features.
+        That is features with good class separability, non-correlated features,
+        features with high correlation with target. 
+    \item teqniques: anova, pearson-correlation, 
+    \item Expertise: Volume is useless
+\end{itemize}
+
+\paragraph{Automatic selection - Random forest} 
+\begin{itemize}
+    \item bagging
+\end{itemize}
+
+\paragraph{Automatic selection - SVM} 
+\begin{itemize}
+    \item Use wrapper methods such as forward selection to find optimal feature
+        combinations
+    \item Compare Features from SVM with previous methods
+    \item Significance testing of results
+\end{itemize}
+
+
+
+
+
+
+
+
