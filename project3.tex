@@ -1,7 +1,7 @@
 % {{{
-\documentclass[a4paper,10pt,norsk]{article}
+\documentclass[a4paper,10pt,english]{article}
 \usepackage[utf8]{inputenc}
-\usepackage[norsk]{babel}
+\usepackage[english]{babel}
 \usepackage{graphicx, verbatim, amsmath, amsfonts, geometry, float, import, bm}
 \usepackage{siunitx} % converts expression to SI units/notation , \num{10e-10}
 % \usepackage[hidelinks]{hyperref}
@@ -12,6 +12,7 @@
             citecolor = blue,
             anchorcolor = blue]{hyperref}
 \usepackage{biblatex}
+\addbibresource{./refs.bib}
 
 % Code higligthing
 \usepackage{listings}
@@ -42,16 +43,19 @@
 % }}}
 
 \title{FYS-STK4155 - Project 3}
-\author{Jens Junker Pedersen}
+\author{Jens Junker Pedersen, Fredrik Junker Pedersen}
 
 \begin{document}
 \maketitle
 \tableofcontents
 
+\input{./abstract.tex}
 \input{./introudction.tex}
 \input{./methods.tex}
 \input{./discussion.tex}
+\input{./appendix.tex}
 
 
+\printbibliography
 
 \end{document}
