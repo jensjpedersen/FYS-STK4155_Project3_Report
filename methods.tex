@@ -11,6 +11,9 @@
 \subsection{Dataset}
 
 
+Our dataset and all the source code can be found in the following gihtub
+repository. 
+
 Our dataset contains 14 features extracted on XXX:n different lymphoma. Each
 feature is extract from a PET Scanner XXX: type where different image
 reconstruction techniques was applied. In our analysis we will study 3
@@ -48,7 +51,7 @@ result.
 \end{figure}
 
 A typical structure of a decision is shown in figure \ref{fig:descision_tree}. Each rectangle
-represents a node in the tree. The building of a decision consists of finding
+represents a node in the tree. The build of a decision consists of finding
 the feature and feature value (threshold) at each node that maximizes the
 purity of each child node resulting from the split. At each node the data is
 split into two child nodes based on the threshold value. Values lower than the threshold is
@@ -57,7 +60,6 @@ node. Thus, the tree consists of a set of rules on where to a specific sample. T
 root node (the upper rectangle) on continues until a Leaf node is reached.
 That is, one of the squares in the bottom of the figures.     
 
-There are XXX:n central parts of the implementation of a de scion tree
 
 \paragraph{The CART algorithm} \hfill
 
@@ -122,7 +124,7 @@ Therefore, we are interested in the change in impurity with respect to a node an
 child nodes. The impurity decrease also needs to take into account the number
 of samples. A feature is more important if it is able to separate more samples.       
 
-We will use the same formula as the scikit learn python library \cite{sklearn}
+% We will use the same formula as the scikit learn python library \cite{sklearn}
 to estimate the feature importance: 
 \begin{equation*}
     \frac{m}{M} \cdot (G  - \frac{m_{\text{left}} }{m} G_{\text{left}}+
@@ -138,17 +140,68 @@ contains the impurity decrease obtained from the best split of a node (except
 for leaf nodes).   
 
 When building the tree all features is considered each time a node is to be
-split. If the same feature is used multiple times to split nodes in a tree.
+split. If the same feature is used multiple times to split nodes in to a tree.
 Then, only the split that produces the highest impurity decrease is stored in
-the \verb|feature_importances_| variable.    
+the \verb|feature_importances_| variable. Hence, used to evaluate the feature
+importance.      
+
+
+
+Our decision tree algorithm can be used directly to identify good features.
+However, there are some problems. The algorithm usually produces very different
+results dependent on small variations in the data. That is, classification
+decision trees suffers from high variance. It may also neglect highly
+correlated features that produces a slightly poorer separation. To circumvent
+these problems we implemented the random forest algorithm. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Random forest}
+Random forest is a type of ensemble learning method, which uses multiple
+decision trees to make predictions and combines them to create a more accurate
+and stable prediction. It uses a technique called bagging, which involves
+randomly selecting a subset of data from the training set and building a
+decision tree from each subset. 
+
+It also uses feature resampling to reduce the
+overfitting of the model. We will implement feature resampling
+to better evaluate the performance of all the features. Feature resampling is
+done within each node of the descion tree. Hence, the best split at each node is
+evaluated on different feature subsets. The general algorithm for a descion
+tree is listed below. 
+\paragraph{Algorithm} 
+
+% Random forest algorithm - cite lecture 44
+\fbox{\begin{minipage}{30em}
+We will grow of forest of say $\bm{B}$ trees.
+
+For b=1:B
+
+Draw a bootstrap sample from the training data organized in our $\boldsymbol{X}$ matrix.
+
+We grow then a random forest tree $T_b $
+based on the bootstrapped data by repeating the steps outlined till we reach
+the maximum node size is reached
+
+we select $m \leq p$  variables at random from the p predictors/features
+
+pick the best split point among the $m$ features using for the CART
+algorithm and create a new node
+
+split the node into daughter nodes
+
+Output then the ensemble of trees $\{T_b\}^B_1$
+
+and make predictions for either a regression type of problem or a
+classification type of problem.
+
+
+\end{minipage}}
 
 
 
 
 
 
-% The Gini index is independent on
-% sample size.   
 
 
 
@@ -247,59 +300,15 @@ Used to select features that is highly dependent on the target variable
 
 
 
-\subsubsection{Random forest}
-% Random forest uses bagging
-\begin{itemize}
-    \item Bootstrap dataset
-    \item Create decision for dataset with random features 
-\end{itemize}
-
-\paragraph{Decision trees} 
-
-
-
-% \paragraph{Bagging} 
-% purpose: reduce variance
 
 
 
 
-\paragraph{Algorithm} 
-
-% Random forest algorithm - cite lecture 44
-\fbox{\begin{minipage}{30em}
-We will grow of forest of say $\bm{B}$ trees.
-
-For b=1:B
-
-Draw a bootstrap sample from the training data organized in our $\boldsymbol{X}$ matrix.
-
-We grow then a random forest tree $T_b $
-based on the bootstrapped data by repeating the steps outlined till we reach
-the maximum node size is reached
-
-we select $m \leq p$  variables at random from the p predictors/features
-
-pick the best split point among the $m$ features using for example the CART
-algorithm and create a new node
-
-split the node into daughter nodes
-
-Output then the ensemble of trees $\{T_b\}^B_1$
-
-and make predictions for either a regression type of problem or a
-classification type of problem.
-
-
-\end{minipage}}
-
-
-\href{https://towardsdatascience.com/feature-selection-using-random-forest-26d7b747597f}{Feature Selection Using Random forest | by Akash Dubey | Towards Data Science}
 
 
 
 
-\subsubsection{SEM}
+\subsubsection{SVM}
 
 
 
