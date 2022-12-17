@@ -1,5 +1,137 @@
 
 \appendix
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Feature Definitions}
+\section{Feature Definitions} \label{sec:appendix_feature_definitions} 
+
+
+The definitions of all the features used in this report can be found at the
+IBSI manual in the following URL;
+\url{https://ibsi.readthedocs.io/en/latest/03_Image_features.htmhttps://ibsi.readthedocs.io/en/latest/03_Image_features.html}.
+There are some differences in feature names in this report and the IBSI manual.
+All the feature names used in this report with the corresponding names used in
+the IBSI manual is listed in table \ref{tab:feature_names}. 
+
+
+\begin{table}
+    \centering
+    \caption{List of feature names referenced in this report and
+     respective naming used in the IBSI reference manual}  
+    \label{tab:feature_names} 
+    \begin{tabular}{|c|c|c|}
+        \hline
+        Feature index & Feature name report & Feature name IBSI \\
+        \hline
+        0            & histogram max & Intensity Histogram Maximum \\
+        \hline
+        1           & histogram mean & Intensity Histogram Mean\\
+        \hline
+        2            & histogram min & Intensity Histogram Minimum\\
+        \hline
+        3           & histogram peak & Local intensity Peak\\
+        \hline
+        4            & histogram std &   \\  %XXX: missing value
+        \hline
+        5       & shape area\_density & Area density (convex hull)\\
+        \hline
+        6   & shape convex\_hull\_area & Morphology, Volume desnity (convex hull)\\
+        \hline
+        7            & shape surface & Morphology, Surface area (mesh)\\
+        \hline
+        8             & shape volume & Morphology, Volume (Voxel counting)\\
+        \hline
+        9     & shape volume\_density & Morphology, Volume desnity (convex hull)\\
+        \hline
+        10            & glcm cluster & Co-occurrence matrix (3D, averaged), Cluster shade \\ %
+        \hline
+        11           & glcm contrast & Co-occurrence matrix (3D, averaged), Contrast\\
+        \hline
+        12            & glcm entropy & Co-occurrence matrix (3D, averaged),\\ % XXX, missing
+        \hline
+        13        & glcm homogeneity & Co-occurrence matrix (3D, averaged), Inverse difference moment\\
+        \hline
+        14      & glcm joint\_maximum & Co-occurrence matrix (3D, averaged), Joint maximum\\
+        \hline
+    \end{tabular} 
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Results}
+
+% own random forest results
+    % index                features      Gini       Std
+
+\begin{table}
+    \centering
+    \centering
+    \caption{Ranking of feature importance from best to worst with respect to
+    impurity descrease for three different reconstruction methods on the full
+    dataset. Thise reults was obtained with our own implementation of the
+Random Forest algorithm. }  
+    \label{tab:feature_importance_own}  
+
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        Rank & Feature index & Feature name & Impurity decrease \\     
+        \hline
+            0       & 2           & histogram min  & 0.075107  & 0.107268 \\
+            1      & 12            & glcm entropy  & 0.054631  & 0.117363 \\
+            2      & 13        & glcm homogeneity  & 0.053020  & 0.116610 \\
+            3      & 11           & glcm contrast  & 0.052926  & 0.114987 \\
+            4       & 4           & histogram std  & 0.051427  & 0.116506 \\
+            5      & 14      & glcm joint\_maximum  & 0.037536  & 0.105538 \\
+            6       & 5      & shape area\_density  & 0.023612  & 0.053102 \\
+            7       & 0           & histogram max  & 0.020978  & 0.080198 \\
+            8       & 3          & histogram peak  & 0.019353  & 0.051127 \\
+            9       & 8            & shape volume  & 0.019134  & 0.049078 \\
+            10      & 1          & histogram mean  & 0.013930  & 0.050433 \\
+            11     & 10            & glcm cluster  & 0.012713  & 0.043985 \\
+            12      & 7           & shape surface  & 0.011461  & 0.047841 \\
+            13      & 9    & shape volume\_density  & 0.010092  & 0.035444 \\
+            14      & 6  & shape convex\_hull\_area  & 0.008733  & 0.043144 \\
+        \hline
+         
+    \end{tabular} 
+\end{table}
+
+
+
+% sklearn random forest  
+    % index                features      Gini       Std
+% 0       2           histogram min  0.142238  0.219349
+% 1      11           glcm contrast  0.112067  0.206816
+% 2      12            glcm entropy  0.110245  0.206969
+% 3      13        glcm homogeneity  0.107881  0.203871
+% 4       4           histogram std  0.106380  0.201516
+% 5      14      glcm joint_maximum  0.081486  0.168922
+% 6       0           histogram max  0.054979  0.127507
+% 7       5      shape area_density  0.051267  0.102214
+% 8       3          histogram peak  0.046761  0.099036
+% 9       8            shape volume  0.043067  0.091043
+% 10      1          histogram mean  0.037393  0.087950
+% 11     10            glcm cluster  0.033017  0.079593
+% 12      7           shape surface  0.027778  0.072690
+% 13      9    shape volume_density  0.023328  0.062269
+% 14      6  shape convex_hull_area  0.022114  0.062338
+
+
+% own random forest results
+    % index                features      Gini       Std
+% 0       2           histogram min  0.075107  0.107268
+% 1      12            glcm entropy  0.054631  0.117363
+% 2      13        glcm homogeneity  0.053020  0.116610
+% 3      11           glcm contrast  0.052926  0.114987
+% 4       4           histogram std  0.051427  0.116506
+% 5      14      glcm joint_maximum  0.037536  0.105538
+% 6       5      shape area_density  0.023612  0.053102
+% 7       0           histogram max  0.020978  0.080198
+% 8       3          histogram peak  0.019353  0.051127
+% 9       8            shape volume  0.019134  0.049078
+% 10      1          histogram mean  0.013930  0.050433
+% 11     10            glcm cluster  0.012713  0.043985
+% 12      7           shape surface  0.011461  0.047841
+% 13      9    shape volume_density  0.010092  0.035444
+% 14      6  shape convex_hull_area  0.008733  0.043144
+
+
+
 
