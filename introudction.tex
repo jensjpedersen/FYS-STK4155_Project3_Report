@@ -65,35 +65,44 @@ develop personalized treatments, and to monitor the effectiveness of
 treatments.
 
 
+There are some serious challenges that needs to be solved in order for
+Radiomics to be clinically relevant.     
+A Radiomics feature should reflect the underlying pathology and not vary due to
+changes in scanner type or scanner specific parameters. Different scanner
+types, reconstruction- and (XXX:bildepalass) -parameters affect feature values
+differently. These parameters needs to be controlled for the field to have any
+clinical relevance. 
+There is currently a high priority in the field to identify features that are
+
+% TODO: write harmonization
+% TODO: feature selection
+% TODO: report structure
+% robust with respect to scanner type and scanner specific parameters. Also
+% different harmonization techniques    
+
 % Problem non robust feature
 
 
 % Dataest
-In this report we will explore a lymphoma dataset acquired with a XXX:cannner
-model. A total of n = XXX: XXX:beining tumors is identified in the image data
-samples. XXX: mention Volume of interest.
-
-Each tumor is reconstructed with different protocols (our class
-labels). A total of XXX:radiomics features is extracted from the volumes of
-interests. 
-
+In this report we will explore a lymphoma image dataset acquired with a PET % XXX add model
+scanner. A total of n = 16 malignant tumors was identified in the image data 
+Each image is reconstructed with different protocols (our class
+labels). A total of 15 radiomics features is extracted from the tumours (Volume
+of Interest) 
 % Objective: discriminate between reconstruction
-We will explore simple machine levring algorithms to explore if it's possible
-to discriminate between the different reconstrunction methods.   
+We will explore simple machine learning algorithms to explore if it's possible
+to discriminate between the different reconstruction methods. Hopefully some of
+the difference seen in the different reconstruction methods will resamble
+differences with respect to different scanner types.    
 
-
-
-
-
-
+If a clear pattern between reconstruction algorithms exists, it may be possible to
+transform features between reconstruction method. In such a way that we can find an 
+absolute standard for what a feature value means in terms of pathology. 
 
 
 % Purpose identify   
 In this project we will use simple supervised machine learning algorithms to
 identify  
-
-
-
 
 
 % Motivation for feature selection
