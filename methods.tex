@@ -309,11 +309,70 @@ Used to select features that is highly dependent on the target variable
 
 
 \subsubsection{SVM}
+Support Vector Machine (SVM) is a machine learning method used for 
+classification and regression problems. We will use SVM for binary 
+classification where the algorithm's aim is to create a $p-1$ dimensional
+affine subspace of the $p$ dimensional feature space which distinguishes all the 
+classifications optimally. This subspace is called a hyperplane and the 
+optimal hyperplane maximizes the margin which is the distance from the 
+hyperplane to the nearest data point in feature space. The optimal hyperplane 
+will therefore be the same distance from the nearest point(s) of each 
+classification it divides. These points are called the support vectors.
 
+The hyperplane is defined by a $p$ dimensional weight vector $\boldsymbol{w}$ and a 
+bias term $b$
+\begin{equation}
+\boldsymbol{x^T}\boldsymbol{w} + b =0, 
+\label{eq:hyperplane}
+\end{equation}
+where $\boldsymbol{x^T}=[x_1,x_2,...,x_p]$ is the transpose of a point in feature space.
+Separating our classifications by $y_i=1$ or $y_i=-1$, we can classify a 
+data point $x_i$ with our hyperplane as 
+\begin{gather*}
+y_i = sign(\boldsymbol{w^T}\boldsymbol{x_i}+b). 
+\end{gather*}
+Our margin defined by our hyperplane and training points $x_i$ with classification $y_i$ becomes the largest $M$ such that 
+\begin{gather}
+\frac{1}{||\boldsymbol{w}||}y_i(\boldsymbol{w^Tx_i}+b) \ge M, \forall i=1,2,...,p. 
+\end{gather}
+If we scale this equation such that $||\boldsymbol{w}||=1/M$, finding the maximal margin 
+will be equivalent to minimizing 
+\begin{gather*}
+||\boldsymbol{w}||
+\end{gather*}
+subject to the constraints 
+\begin{gather*}
+y_i(\boldsymbol{w^Tx_i}+b) \ge 1, \forall i.
+\end{gather*}
 
+The optimization of the hyperplane can be solved using Lagrange multipliers. 
+For each constraint formulated as $\phi_k (\boldsymbol{x})=0$, we add a Lagrange
+multiplier $\lambda _k \ge 0$ such that $\frac{\partial f}{\partial x_i}+\lambda_k \frac{\partial \phi }{\partial x_i}=0$,
+where $f(\boldsymbol{x})$ with $x_i \epsilon [\boldsymbol{x}]$ is the function we want to minimize 
+subject to the constraints.
 
-
-
-
+Using the Lagrange multipliers, the optimization problem can be solved by minimizing 
+the following Lagrangian function
+\begin{equation}
+	L(\lambda ,b,\boldsymbol{w})=\frac{1}{2}\boldsymbol{w^Tw}-\sum_{i} \lambda _i[y_i(\boldsymbol{w^Tx_i}+b)]-1,\lambda _i \ge0. 
+	\label{eq:Lagrangian}
+\end{equation}
+Taking the derivatives with respect to $\boldsymbol{w}$ and $b$ we obtain the constraints 
+\begin{gather*}
+\frac{\partial L}{\partial b}=-\sum_{i} \lambda _i y_i=0,
+\quad \frac{\partial L}{\partial \boldsymbol{w} }= \boldsymbol{w} -\sum_{i} \lambda _i y_i \boldsymbol{x_i} =0.
+\end{gather*}
+Inserting these constraints in \autoref{eq:Lagrangian}, we are able to get rid 
+of the variables $\boldsymbol{w}$ and $b$ from the Lagrangian
+\begin{equation}
+L = \sum_{i} \lambda _i - \frac{1}{2}\sum_{ij}^{n} \lambda _i \lambda _j y_i y_j \boldsymbol{x_i^Tx_j},
+\label{eq:Lagrangian_lmb}
+\end{equation}
+with constraints $\lambda _i \ge 0$ and $\sum_{i} \lambda _iy_i=0$.
+Additionally, the Karush-Kuhn-Tucker condition has to be satisfied
+\begin{gather*}
+\lambda _i >0 \implies y_i(\boldsymbol{w^Tx_i}+b)=1, \quad y_i(\boldsymbol{w^Tx_i}+b)>1 \implies \lambda _i = 0,
+\end{gather*}
+such that $\lambda _i>0$ if and only if $\boldsymbol{x_i}$ is a support vector. 
 
 
