@@ -375,4 +375,53 @@ Additionally, the Karush-Kuhn-Tucker condition has to be satisfied
 \end{gather*}
 such that $\lambda _i>0$ if and only if $\boldsymbol{x_i}$ is a support vector. 
 
+There is often overlap between classifications in feature space. Then, there 
+won't exist a hyperplane able to separate all the classifications. We will 
+implement two ways to deal with this problem. 
+
+The first is to introduce slack variables. The slack variables 
+$\varepsilon _i \ge  0$ allows for some misclassification of 
+the training data. The amount of misclassification is governed by the 
+slack constant $C$ which sets a bound on the sum of the slack variables.  
+Utilizing this method turns our SVM in to a so-called soft classifier as 
+opposed to a hard classifier. 
+The Lagrangian stays the same as \autoref{eq:Lagrangian_lmb}, but 
+with different constraints:
+\begin{gather*}
+	\sum_{i} \lambda _i y_i = 0, \quad 0 \le \gamma _i \le C,\\
+	\lambda _i[y_i(\boldsymbol{w^Tx_i}+b)-(1-\varepsilon _i)]=0,\\
+y_i(\boldsymbol{w^Tx_i}+b)-(1-\varepsilon _i) \ge 0.
+\end{gather*}
+
+The second method is to transform the basis of the feature space to obtain 
+better separation between classifications. This is done with a so-called 
+kernel $K$ which transforms the data in \autoref{eq:Lagrangian_lmb} by 
+\begin{gather*}
+\boldsymbol{x_i^Tx_j} \rightarrow ø(\boldsymbol{x_i})^Tø(\boldsymbol{x_j})=K(\boldsymbol{x_i,x_j}),
+\end{gather*}
+where $ø(\boldsymbol{x})$ is some transformation of the feature space.
+
+Our Lagrangian in \autoref{eq:Lagrangian_lmb} expressed as a convex optimization 
+problem in terms of a matrix equation using a kernel $K$ may be written as 
+\begin{equation}
+\frac{1}{2}\boldsymbol{\lambda ^T}
+\begin{bmatrix}
+	 y_1y_1K(\boldsymbol{x_1,x_1})  & y_1y_2K(\boldsymbol{x_1,x_2}) & \hdots & y_1y_nK(\boldsymbol{x_1,x_n}) \\
+	 y_2y_1K(\boldsymbol{x_2,x_1})  & y_2y_2K(\boldsymbol{x_2,x_2}) & \hdots & y_2y_nK(\boldsymbol{x_2,x_n}) \\
+	\vdots & \vdots & \ddots & \vdots \\
+	 y_ny_1K(\boldsymbol{x_n,x_1})  & y_ny_2K(\boldsymbol{x_n,x_2}) & \hdots & y_ny_nK(\boldsymbol{x_n,x_n}) \\
+\end{bmatrix}
+\boldsymbol{\lambda }-\mathbb{1}\boldsymbol{\lambda } 
+\end{equation}
+
+
+There are many popular kernels such as the Gaussian radial basis function which 
+we will use:
+\begin{equation}
+K(\boldsymbol{x_i,x_j})=exp(-\gamma ||\boldsymbol{x_i-x_j}||^2)
+\label{eq:grbf}
+\end{equation}
+
+
+
 
