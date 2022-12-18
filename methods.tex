@@ -411,17 +411,72 @@ problem in terms of a matrix equation using a kernel $K$ may be written as
 	\vdots & \vdots & \ddots & \vdots \\
 	 y_ny_1K(\boldsymbol{x_n,x_1})  & y_ny_2K(\boldsymbol{x_n,x_2}) & \hdots & y_ny_nK(\boldsymbol{x_n,x_n}) \\
 \end{bmatrix}
-\boldsymbol{\lambda }-\mathbb{1}\boldsymbol{\lambda } 
+\boldsymbol{\lambda }-\mathbb{1}\boldsymbol{\lambda },
+\label{eq:Lagrangian_mateq}
 \end{equation}
-
+where $\mathbb{1}=[1,1,...,1]$ is $n$ dimensional. Here $\boldsymbol{\lambda }=[\lambda _1,\lambda _2,...,\lambda _n]^T$ 
+and $\boldsymbol{y}=[y_1,y_2,...,y_n]^T$. The constraints can be written as 
+$\boldsymbol{y^T\lambda }=0$, and $0 \le \lambda _i \le C$ assuming we are using 
+a slack constant $C$.  
 
 There are many popular kernels such as the Gaussian radial basis function which 
 we will use:
 \begin{equation}
-K(\boldsymbol{x_i,x_j})=exp(-\gamma ||\boldsymbol{x_i-x_j}||^2)
+K(\boldsymbol{x_i,x_j})=exp(-\gamma ||\boldsymbol{x_i-x_j}||^2).
 \label{eq:grbf}
 \end{equation}
+Here, $\gamma $ is a constant which needs to be tuned.
+We know that the feature space transformation $ø$ defining the kernel exists based 
+on Mercer's theorem which states that if $K$ is symmetric, continuous and leads to 
+a positive semi-definite matrix $P$ defined in \autoref{eq:Lagrangian_mateq}, then 
+$ø$ exists. 
 
+To minimize \autoref{eq:Lagrangian_mateq}, we will use \verb|solvers.qp| from
+the python library \verb|cvxopt|. The solver takes the minimization problem 
+and its constraints as matrix equations:
+\begin{equation}
+	\begin{split}
+		\text{min}_{\boldsymbol{\lambda }}\quad \frac{1}{2}\boldsymbol{\lambda ^TP\lambda +q^T\lambda },\\
+	\text{subject to}\quad \boldsymbol{G \lambda  \le h}, \quad \boldsymbol{A \lambda =b}.
+	\end{split}
+	\label{eq:solver_eq}
+\end{equation}
 
+The problem in \autoref{eq:solver_eq} are defined and solved based on \autoref{eq:Lagrangian_mateq}
+in the following code:
+\begin{lstlisting}[language=Python]
+def solve(self):
+        # Solution for minimizing 
+        # (1/2) * lambda.T @ P @ lambda + q.T @ lambda 
+        # subject to constraints
+
+        y = self.y_train
+        X = self.X_train
+        n = self.X_train.shape[0]
+
+        q = -1 * np.ones(n).T
+        P = np.zeros((n, n))
+        for i in range(n):
+            for j in range(n):
+                P[i,j] = y[i] * y[j] * self.K(X[i,:], X[j,:])
+        
+        # G and h sets constraints on col vec lambda: G@lambda <= h
+        G = np.zeros((2*n, n))
+        G [:n, :] = np.identity(n) * (- 1)
+        G[n:,:] = np.identity(n)
+        h = np.zeros(2*n)
+        h[n:] = np.ones(n) * self.C
+        # A and b sets  constraints on labda: A@lambda = b
+        A = np.array(self.y_train, dtype=float).T
+        b = np.zeros(1) 
+    
+        # Solve 
+        P, q, G, h, A, b = matrix(P), matrix(q), matrix(G), matrix(h), matrix(A), matrix(b)
+        solvers.options['show_progress'] = False
+        sol = solvers.qp(P, q, G, h, A, b)
+        self.lmb = np.array(sol["x"])
+        self.lmb_non_zero_indecies = np.where(self.lmb > 1e-5)[0]
+        self.calc_b()
+\end{lstlisting}
 
 
