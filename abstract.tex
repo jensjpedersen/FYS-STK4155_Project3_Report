@@ -1,5 +1,53 @@
 
 
 \begin{abstract}
-    abstract
+    % Motivation
+    Radiomics is the field of medicine where high amounts of quantitative features is
+    extracted from medical images. The field is most studied in terms of
+    oncology, where features are aggregated in tumors. The goal is to establish
+    links between diagnosis, prognosis and treatment response, from
+    correlations in quantitative radiomics features. However, image modalities
+    such as Positron Emission Tomography (PET) suffers from high feature
+    variability inter scanners and due to different image reconstruction parameters, etc.  
+    In order for radiomics to have any clinical relevance, features values need
+    to be harmonized and standardized. A feature values should reflect the
+    underlying pathology and not vary due to scanner specific settings. It's
+    therefore important to establish how different scanner parameter affect the
+    feature value. If a link is established it may be possible to standardize
+    certain features.  
+
+    Feature selection is an important step in the machine learning process because it helps to reduce the complexity of the 
+    model, improve the accuracy of the model, reduce overfitting, reduce
+    the training time of the model, increase explain ability of the model.  Feature selection helps 
+    to identify the most important features that contribute to the prediction
+    and discard the irrelevant or redundant features. 
+
+    % Especially in medicine it's important to be able to explain the outcomes of
+    % a prediction.
+    % What we have done
+
+    Our dataset contains 15 radiomics features extracted on 16 different lymphom
+    cancers acquired with a PET scanner. Each image is reconstructed with tree
+    different reconstruction methods (our class label targets). We will try to
+    identify the features that are best able the separate each reconstruction
+    method in a systematic way. In the first part we will use random forest to
+    identify the features with best class separability between reconstruction.
+    Then we will apply feed forward selection with Suport Vector Machine (SVM)
+    to see if we are able to correctly predict the class targets. And also
+    validate if or prior features selection agrees with the
+    results obtained with SVM.         
+
+
+    % Main results
+
+
+
+
+
+    % Implications
+    % Try to establish models that maps recons?
+
 \end{abstract}
+
+
+
