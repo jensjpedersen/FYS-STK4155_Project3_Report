@@ -170,3 +170,28 @@ The slack constant and GRBF kernel factor are set to $C=10^4$  $\gamma=1 $ respe
 
 
 
+\autoref{fig:Figures-accuracy-C-gamma-0} shows the accuracy of the SVM model's 
+test data predictions for different slack constants $C$ and GRBF kernel factors $\gamma $. 
+We observe the best accuracy for $C=10^5$ and $\gamma =1$. Lower slack constant 
+allows for more misclassification while lower $\gamma $ results in a wider 
+GRBF kernel which means that the influence of each data point on the hyperplane 
+position will decrease. Both leads towards under fitting on the under-over fit spectrum.
+Our optimal values for $C$ and $\gamma $ are quite large suggesting the need for 
+a complex hyperplane to classify our data. 
+
+We will utilize these optimal value in our analysis of predictions based on two and three 
+features. They should be tuned for every feature combination, but this would required 
+way to much computation to handle for our computer. The optimal parameter values 
+obtained using all the features will be good general parameters for the following 
+feature combination analysis. 
+
+
+\autoref{fig:Figures-feature_pairs0} shows a heatmap of the accuracy obtained with different 
+feature pairs utilized by the SVM model for training and predicting. The diagonal from upper left 
+to lower right of the heatmap shows pairs of same features which is equivalent to classification 
+based on that single feature. We observe the best score for a single feature with \verb|glcm entropy|.
+
+The feature pairs have been utilized twice, one on either side of the equal feature diagonal, which is nice as 
+this gives some conformation. We observe both scores of the feature pair \verb|histogram min| and \verb|glcm homogeneity| 
+to be the best. 
+
