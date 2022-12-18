@@ -4,6 +4,39 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Manual feature selection}
 
+% sklearn random forest  
+
+\begin{table}
+    \centering
+    \caption{Ranking of feature importance from best to worst with respect to
+    impurity descrease for three different reconstruction methods on the full
+    dataset. }  
+    \label{tab:feature_importance}  
+
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        Rank & Feature index & Feature name & Impurity decrease \\     
+        \hline
+        0       & 2           & histogram min  & 0.142238   \\
+        1      & 11           & glcm contrast  & 0.112067   \\
+        2      & 12            & glcm entropy  & 0.110245   \\
+        3      & 13        & glcm homogeneity  & 0.107881   \\
+        4       & 4           & histogram std  & 0.106380   \\
+        5      & 14      & glcm joint\_maximum  & 0.081486   \\
+        6       & 0           & histogram max  & 0.054979   \\
+        7       & 5      & shape area\_density  & 0.051267   \\
+        8       & 3          & histogram peak  & 0.046761   \\
+        9       & 8            & shape volume  & 0.043067   \\
+        10      & 1          & histogram mean  & 0.037393   \\
+        11     & 10            & glcm cluster  & 0.033017   \\
+        12      & 7           & shape surface  & 0.027778   \\
+        13      & 9    & shape volume\_density  & 0.023328   \\
+        14      & 6  & shape convex\_hull\_area  & 0.022114   \\
+        \hline
+         
+    \end{tabular} 
+\end{table}
+
 
 % Identify features with poor class separation
 

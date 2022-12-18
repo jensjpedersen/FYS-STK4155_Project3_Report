@@ -1,42 +1,105 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Methods}
-\paragraph{Resources Hyperlinks} 
-\begin{itemize}
-    \item \href{https://www.kaggle.com/code/rafjaa/dealing-with-very-small-datasets}{Dealing with very small datasets | Gaggle}
-    
-\end{itemize}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Dataset}
+\subsection{Dataset} \label{sec:method_dataset} 
+
+\begin{table}
+    \centering
+    \caption{List of all features used in analysis. The exact feature
+    definitions can be found in the appendix \ref{sec:appendix_feature_definitions}}  
+    \label{tab:features} 
+    \begin{tabular}{|c|c|}
+        \hline
+        Feature number & Feature name \\
+        \hline
+        0            & histogram max \\
+        \hline
+        1           & histogram mean \\
+        \hline
+        2            & histogram min \\
+        \hline
+        3           & histogram peak \\
+        \hline
+        4            & histogram std \\
+        \hline
+        5       & shape area\_density \\
+        \hline
+        6   & shape convex\_hull\_area \\
+        \hline
+        7            & shape surface \\
+        \hline
+        8             & shape volume \\
+        \hline
+        9     & shape volume\_density \\
+        \hline
+        10            & glcm cluster \\
+        \hline
+        11           & glcm contrast \\
+        \hline
+        12            & glcm entropy \\
+        \hline
+        13        & glcm homogeneity \\
+        \hline
+        14      & glcm joint\_maximum \\
+        \hline
+    \end{tabular} 
+\end{table}
 
 
 Our dataset and all the source code can be found in the following gihtub
 repository. 
 
-Our dataset contains 14 features extracted on XXX:n different lymphoma. Each
-feature is extract from a PET Scanner XXX: type where different image
-reconstruction techniques was applied. In our analysis we will study 3
-different reconstruction methods, XXX: names. This will be our classification
+Our dataset contains 15 Radiomics features extracted on 16 different lymphom
+cancers. All the feature values can be found in the Github repository with path
+\verb|./Data/big_test.csv|. The name column corresponds to the different tumors
+(Volume of Interest's), the series column contains the names of a total of six
+unique PET reconstruction methods. The analysis done in this report uses only
+tree of the six reconstruction methods, with names PT\_PET\_EARL2,
+PT\_PET\_EARLAC and PT\_PET\_WB\_Q\_CLEAR. Their will be our target class
+labels in or supervised classification methods. The respective feature names
+can be found in the feature\_name column with it's respective values in the
+value column.  
+
+To read the data, the following python code can be used. 
+\begin{lstlisting}[language=Python]
+import read_csv
+input_path = '../../Data/big_test.csv'
+r = read_csv.ReadCSV(input_path)
+r._remove_series([2, 3, 5])
+X, y = r.get_df()
+\end{lstlisting}
+In the above code X is a pandas frame with size $n=3 \cdot 16$ rows (sample
+size) and $p = 15$ columns (features). Our target class labels (reconstruction
+methods) is encoded as a
+on hot vector, where the first, second and third correspond to our
+reconstruction methods 
+PT\_PET\_EARL2  PT\_PET\_EARLAC  PT\_PET\_WB\_Q\_Clear respectively. In the
+cases where integer class labels is used to reference the different target the
+values 0, 1 and 2 are use in the respective order as above. 
+
+The features are listed in table \ref{tab:features}. For exact feature
+definitions see \ref{sec:appendix_feature_definitions}. All the features is
+aggregated in a Volume Of Interest (VOI). Each VOI has a
+threshold of $0.41 \cdot max$. 
+That is, the minimum value in the VOI is larger or equal to 0.41\% of the
+maximum value voxel (3D pixel) intensity in the tumor. Defining the boundary as a minimum
+value is meaningful since the voxel intensity value in a PET scanner
+is positively correlated with cell proliferation. 
+All the images is acquired with a PET Scanner % XXX:type 
+where different image reconstruction techniques was applied to each image. In our analysis we will study 3
+different reconstruction methods. This will be our classification
 targets. Thus, we are interested to see if it is possibly to identify features
 that gives good class separation with respect to reconstruction method. This
 will be a challenging since our data only contains 16 samples per
-reconstruction. This will be an exercise in selecting good features applied to
-simple ML models
+reconstruction. Hence, a total of $16 \cdot 3$ data points. 
+This will be an exercise in selecting a few good features to prevent
+overfitting applied to simple supervised classification models.   
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Random forest}
-In our first attempt to identify good features (features with good
-class separation), we will use a random forest classifier. 
-It can be used to identify the features and feature value that splits the data
-into the purest classes (see XXX)
-The algorithm works by constructing multiple decision trees, each of which is trained 
-on a subset of the data. 
-
-\subsubsection{Decision Tree Classifier}
+\subsection{Decision Tree Classifier} \label{sec:method_descion_tree} 
 A classification decision tree is a predictive model that predicts the target
-class of a feature based on a set of binary rules . The decision tree consists of a series of
+class of a feature based on a set of binary rules. The decision tree consists of a series of
 nodes, branches, and leaves. Each node represents a decision point, each branch
 represents a possible outcome, and each leaf represents a final consequence or
 result. 
@@ -61,7 +124,7 @@ root node (the upper rectangle) on continues until a Leaf node is reached.
 That is, one of the squares in the bottom of the figures.     
 
 
-\paragraph{The CART algorithm} \hfill
+\subsubsection{The CART algorithm} \hfill
 
 We implemented the CART algorithm to find the optimal splits in the data.  
 
@@ -90,7 +153,7 @@ subset further. That is, the number of samples in the subset is equal to one.
 The recursion will also stop if our subset is 100\% pure. That is, the subset
 only consist of one class label.  
 
-\paragraph{Gini factor} \label{sec:gini_factor} \hfill
+\subsubsection{Gini factor} \label{sec:gini_factor} \hfill
 
 The Gini factor is used to measure the purity of the data subset and is
 calculated as:
@@ -113,7 +176,7 @@ P = np.sum(y, axis = 0)/y.shape[0]
 \end{lstlisting},
 where \verb|y| is the one hot vector of our class targets. 
 
-\paragraph{Calculating the feature importance} \hfill
+\subsubsection{Feature importance} \label{sec:feature_imporance} 
 Our random forest implementation was used to identify most discriminative
 features and not used for its predictive power. Again, we will use the Gini
 factor to calculate the feature importance. 
@@ -155,10 +218,20 @@ correlated features that produces a slightly poorer separation. To circumvent
 these problems we implemented the random forest algorithm. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Random forest}
+
+\subsection{Random forest} \label{sec:method_random_forest} 
 Random forest is a type of ensemble learning method, which uses multiple
 decision trees to make predictions and combines them to create a more accurate
-and stable prediction. It uses a technique called bagging, which involves
+and stable prediction. 
+
+In our first attempt to identify good features (features with good
+class separation), we will use a random forest classifier. 
+It can be used to identify the features and feature value that splits the data
+into the purest classes (see section \ref{sec:feature_imporance})
+The algorithm works by constructing multiple decision trees, each of which is trained 
+on a subset of the data. 
+
+It uses a technique called bagging, which involves
 randomly selecting a subset of data from the training set and building a
 decision tree from each subset. 
 
@@ -166,8 +239,8 @@ It also uses feature resampling to reduce the
 overfitting of the model. We will implement feature resampling
 to better evaluate the performance of all the features. Feature resampling is
 done within each node of the descion tree. Hence, the best split at each node is
-evaluated on different feature subsets. The general algorithm for a descion
-tree is listed below. 
+evaluated on different feature subsets. The general algorithm for a random
+forest is listed below. 
 \paragraph{Algorithm} 
 
 % Random forest algorithm - cite lecture 44
@@ -193,9 +266,46 @@ Output then the ensemble of trees $\{T_b\}^B_1$
 
 and make predictions for either a regression type of problem or a
 classification type of problem.
-
-
 \end{minipage}}
+
+% Discuss differences with own implementation and sklearn
+
+We did compare our own implementation of the random forest to the python
+scikit learn function RandomForestClassifier. For sklearn and our own
+implementation we used the following parameters, \verb|n\_estimators=100000|,
+\verb|max_features='sqrt'|. Where n\_estimators is the number of decision trees
+in the forest. A total of $\sqrt{p} $ random features was considered in each
+split, where p=15, is the total number of features. Then the models was fitted
+to the full dataset. Our fitted classifier will then contains a list of all the
+fitted decision trees. The feature\_importances\_ variable obtained from all the
+decision trees was used to find the overall best features.  
+
+The results from our own implementation and sklearn did mostly agree in the
+feature ranking. However, the impurity decrease obtained with sklearn was
+approximately two times larger for all features than obtained with our own
+implementation. Our own implementation was also much slower compared to
+sklearn. Therefore, the results obtained with the random forest in this algorithm
+is obtained with sklearn's implementation. The following python code can easily
+be used to reproduce our results:  
+\begin{lstlisting}[language=Python]
+import numpy as np 
+from sklearn.ensemble import RandomForestClassifier
+np.random.seed(0)
+RandomForestClassifier(n_estimators=10000, max_features='sqrt')
+clf.fit(X, y)
+importances = np.zeros((clf.n_estimators, X.shape[1]))
+for i, tree_clf in enumerate(clf.estimators_): 
+    importances[i, :] = tree_clf.feature_importances_
+importances = np.mean(importances, axis = 0)
+\end{lstlisting}
+The mean importance decrease of all the features was stored in the importances
+variable.  
+% explain elements in code
+
+
+
+
+
 
 
 

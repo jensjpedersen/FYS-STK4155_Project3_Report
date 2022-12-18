@@ -1,101 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 
-
-
-
-\paragraph{Purpose} 
-\begin{itemize}
-    \item Implement ML algorithms for automatic feature reduction in classification
-        problem
-    \item Use non-automatic methods; correlation matrix, simple similarity
-        measures to select features with best separability   
-
-    \item Compare Results from non-automatic and automatic methods
-\end{itemize}
-
-
-
-\begin{itemize}
-    \item Explore ML algorithms suited for classification on spares data  
-    \item Feature reduction and find optimal set of feature for classification
-    \item Classification Data: 
-        \begin{itemize}
-            \item Cancer data with 17 tumors
-            \item Each tumor is reconstructed with 3 different scanner
-                reconstruction methods, our classes 
-            \item Thus, tot. data = 17*3
-            \item Different features is extracted from images   
-        \end{itemize}
-        
-\end{itemize}
-
-
-\paragraph{Approach} 
-\paragraph{Manual feature selection} 
-\begin{itemize}
-    \item First we will use visualization techniques to identify good features.
-        That is features with good class separability, non-correlated features,
-        features with high correlation with target. 
-    \item teqniques: anova, pearson-correlation, 
-    \item Expertise: Volume is useless
-\end{itemize}
-
-\paragraph{Automatic selection - Random forest} 
-\begin{itemize}
-    \item bagging
-\end{itemize}
-
-\paragraph{Automatic selection - SVM} 
-\begin{itemize}
-    \item Use wrapper methods such as forward selection to find optimal feature
-        combinations
-    \item Compare Features from SVM with previous methods
-    \item Significance testing of results
-\end{itemize}
-
-
-% Radiomics and identification of features  
-Radiomics is a field of medical imaging that uses advanced
-image processing algorithms to extract quantitative features from medical
-images such as CT, MRI, and PET scans. These features are then used to develop
-predictive models to better understand a patient's disease and to predict
-outcomes. Radiomics can be used to better understand the biology of cancer, to
-develop personalized treatments, and to monitor the effectiveness of
-treatments.
-
-
-% Problem non robust feature
-
-
-% Dataest
-In this report we will explore a lymphoma dataset acquired with a XXX:cannner
-model. A total of n = XXX: XXX:beining tumors is identified in the image data
-samples. XXX: mention Volume of interest.
-
-Each tumor is reconstructed with different protocols (our class
-labels). A total of XXX:radiomics features is extracted from the volumes of
-interests. 
-
-% Objective: discriminate between reconstruction
-We will explore simple machine levring algorithms to explore if it's possible
-to discriminate between the different reconstrunction methods.   
-
-
-
-
-
-
-
-
-% Purpose identify   
-In this project we will use simple supervised machine learning algorithms to
-identify  
-
-
-
-
-
 % Motivation for feature selection
 Feature selection is an important step in the machine learning process because
 it helps reduce the complexity of the model and helps improve its accuracy. By
@@ -111,23 +16,99 @@ the complexity of a model and make it more interpretable by removing redundant
 or irrelevant features. This can also help to reduce the amount of noise in the
 data, making it easier for the model to generalize to unseen data.
 
+% Radiomics and identification of features  
+Radiomics is a field of medical imaging that uses advanced
+image processing algorithms to extract quantitative features from medical
+images such as CT, MRI, and PET scans. These features are then used to develop
+predictive models to better understand a patient's disease and to predict
+outcomes. Radiomics can be used to better understand the biology of cancer, to
+develop personalized treatments, and to monitor the effectiveness of
+treatments.
 
+% Radiomics problem 
+There are some serious challenges that needs to be solved in order for
+Radiomics to be clinically relevant.     
+A Radiomics feature should reflect the underlying pathology and not vary due to
+changes in scanner type or scanner specific parameters. Different scanner
+types, reconstruction and image processing parameters affect feature values
+differently. These parameters needs to be controlled in orderer for the field to have any
+clinical relevance. 
+There is currently a high priority in the field to identify methods for
+harmonization features values. 
 
+% TODO: write harmonization
+Feature harmonization in radiomics refers to the process of standardizing the
+calculation and representation of radiomic features across different imaging
+studies or datasets. This is important because radiomic features can be
+affected by various factors such as imaging modality, acquisition parameters,
+and image processing techniques, which can lead to significant variability in
+the calculated features even within a single study.
+
+To address this variability, feature harmonization involves establishing
+standardized protocols for calculating and representing radiomic features that
+can be applied consistently across different studies or datasets. 
+
+By harmonizing the calculation and representation of radiomic features, it is
+possible to more accurately compare and analyze the features across different
+studies or datasets, enabling more reliable and reproducible results in
+radiomics research.
+% TODO: feature selection
+% TODO: report structure
+% robust with respect to scanner type and scanner specific parameters. Also
+% different harmonization techniques    
+
+% Problem non robust feature
+
+% Dataest
+In this report we will explore a lymphoma image dataset acquired with a PET % XXX add model
+scanner. A total of n = 16 malignant tumors was identified in the image data 
+Each image is reconstructed with different reconstruction protocols (our class
+labels). A total of 15 radiomics features is extracted from the tumours (Volume
+of Interest) 
+% Objective: discriminate between reconstruction
+We will explore simple machine learning algorithms to explore if it's possible
+to discriminate between the different reconstruction methods. 
+
+If a clear pattern between reconstruction algorithms exists, it may be possible to
+transform features values between different reconstruction methods. And
+therfore control for the specific reconstruction methods. In such a way that
+it may be possible to define absolute standards for the interpretation of a specific
+feature value and it's significance in terms of pathology.       
+
+% In this project we will use simple supervised machine learning algorithms to
+% identify  
 
 % What we have done
 In the first part of the report we will implement simple feature selection
 techniques to identify features that are able to discriminate between the
 different PET reconstruction methods. We will use random forest to identify the
 features with best discriminative power. Then we will use person correlation to
-identify highly correlated redundant features, and ANOVA to identify
-features that is highly correlated with the targets classes. In the last part we will
+identify highly correlated redundant features. In the last part we will
 use feed forward feature selection in conjugation with Support Vector Machine
 (SVM). We will then evaluate if our prior analysis is in agreement with the
-results obtained with SVM. And also  Our own implementations of the algorithms will be
-tested with the scikit learn python package. 
+results obtained with SVM. If our models and selected features is able to
+accurately discriminate between the different classes. Then, it may be possible
+find models that are able to map feature values between series, and define
+absolute standards for the quantitative meaning of a feature value with respect
+to pathology. 
 
-Is our prior analysis as expected. 
+% Report structure
+% Method 
+The first part of the method section (\ref{sec:method_dataset}) explains how the data is organized and
+how to reproduce the data with python code. Subsection
+\ref{sec:method_descion_tree} and \ref{sec:method_random_forest} contains the
+necessary theory on how to implement a random forest. The last part of
+subsection \ref{sec:method_random_forest} explains how to reproduce our results
+obtained with random forest feature selection. And also comparison of our own
+implementation vs the sci-kit learn python library.  
 
+% Method SVM 
+
+
+% Results random forest
+
+
+% Results SVM 
 
 
 
