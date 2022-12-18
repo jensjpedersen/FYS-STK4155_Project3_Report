@@ -52,12 +52,73 @@
     \label{fig:feature_importance} 
 \end{figure}
 
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{Figures/feature_importance.png}
+%     \caption{Mean of the feautre\_importacnes\_ (purity decrease) for each decision tree. The
+%     error bar shows the 95\% confidence interval. The x-axis represent feature
+%     number as defined in table XXX: ref table.  }  
+%     \label{fig:feature_importance} 
+% \end{figure}
+
+Figure \ref{fig:feature_importance} shows the histogram the feature importance
+on the y axis and feature index on the x axis. These results was obtained with
+with sci-kit learn's implementation of the random forest. The 95 \% confidence
+interval is shown on the top of each bar. The histogram min is best able to
+discriminate between the tree different reconstruction methods, with a impurity
+decrease of 0.1029\&. The numerical feature importance (Impurity decrease)
+values for all the features is listed in table \ref{tab:feature_importance}.
+The glcm entropy features gives the second best impurity decrease with a value
+of 0.0890. Our next 3 best features are glcm contrast, histogram std and glcm
+homogeneity which performs similarity with an impurity descrese in the rande
+0.0805-0.0838. 
+
+In figure \ref{fig:correlation} the correlation between all the features is
+plotted. The color bar has a range from -1 (black) to 1 (white), where a score
+of 1 indicates perfect correlation. The histogram min features is not strongly
+correlated with any other features, thus we expect this features give a good
+accuracy on the test data with the SVM model. Our next best features glcm
+entorpy is highly correlated with histogram std. Thus, only one of the features
+should be used when training a classification model. Utilizing both features
+will produce high variance due to redundant information. When training our SVM
+we therefore expect the combinations of these two features to produce worse
+accuracy on the test data compared with any other combination of the top 5
+features. Glcm contrast has the highest correlation with histogram std, but not
+to the same extent as the two previous discussed features. GLCM homogeneity has
+the highest correlation with glcm joint\_maximum. However, the GLCM maximum
+features performance significantly worse with a difference impurity decrease of
+0.0189. In our training of the SVM we expect that a combination of hisogram
+min, glcm entropy. The 4 combinations of features we expect to
+produce the best predication on the test data is listed in table
+\ref{tab:expectation}. Also, every combination of two features in each row is
+expected perform well with SVM. 
+
+\begin{table}
+    \centering
+    \caption{Each row corresponds to a set of feature combinations that is
+        expected to give good accuracy with SVM. Combinations of two of the features
+    in each row shoud also give good accuracy with SVM. The columns is sorted
+with respect to impurity decrease, where the left most column has the highest
+impurity decrease}  
+    \label{tab:expectation} 
+    \begin{tabular}{|c|c|c|}
+        \hline
+        feature 1 & feature 2 & feature 3 \\
+        \hline
+        histogram min & gclm entropy & glcm homogeneity \\ 
+        histogram min & gclm entropy & histogram std  \\ 
+        histogram min & gclm contrast & glcm homogeneity \\ 
+        histogram min & gclm contrast & histogram std  \\ 
+        \hline
+    \end{tabular} 
+\end{table}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{Figures/feature_correlation.png}
     \caption{Pearson Correlation between each feature calculated on the full
     dataset. }  
+    \label{fig:correlation} 
 \end{figure}
 
 
