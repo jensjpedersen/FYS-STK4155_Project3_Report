@@ -589,4 +589,13 @@ def solve(self):
         self.calc_b()
 \end{lstlisting}
 
+Having obtained our Lagrange multipliers, we are able to calculate our bias term 
+\begin{gather*}
+b = \frac{1}{N_s}\sum_{j\epsilon N_s} (y_j-\sum_{i=1}^{n} \lambda _i y_i K(\boldsymbol{x_i,x_j}),
+\end{gather*}
+where $N_s$ is the number of support vectors with indices $j$.
+Then, we are able to predict the classification of a point $x_i$ in feature space by 
+\begin{gather*}
+y_i = sign(b + {N_s}\sum_{j\epsilon N_s} y_j \lambda _j K(\boldsymbol{x_i,x_j})
+\end{gather*}
 
