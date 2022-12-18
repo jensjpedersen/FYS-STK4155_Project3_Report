@@ -399,11 +399,174 @@ Used to select features that is highly dependent on the target variable
 
 
 \subsubsection{SVM}
+Support Vector Machine (SVM) is a machine learning method used for 
+classification and regression problems. We will use SVM for binary 
+classification where the algorithm's aim is to create a $p-1$ dimensional
+affine subspace of the $p$ dimensional feature space which distinguishes all the 
+classifications optimally. This subspace is called a hyperplane and the 
+optimal hyperplane maximizes the margin which is the distance from the 
+hyperplane to the nearest data point in feature space. The optimal hyperplane 
+will therefore be the same distance from the nearest point(s) of each 
+classification it divides. These points are called the support vectors.
 
+The hyperplane is defined by a $p$ dimensional weight vector $\boldsymbol{w}$ and a 
+bias term $b$
+\begin{equation}
+\boldsymbol{x^T}\boldsymbol{w} + b =0, 
+\label{eq:hyperplane}
+\end{equation}
+where $\boldsymbol{x^T}=[x_1,x_2,...,x_p]$ is the transpose of a point in feature space.
+Separating our classifications by $y_i=1$ or $y_i=-1$, we can classify a 
+data point $x_i$ with our hyperplane as 
+\begin{gather*}
+y_i = sign(\boldsymbol{w^T}\boldsymbol{x_i}+b). 
+\end{gather*}
+Our margin defined by our hyperplane and training points $x_i$ with classification $y_i$ becomes the largest $M$ such that 
+\begin{gather}
+\frac{1}{||\boldsymbol{w}||}y_i(\boldsymbol{w^Tx_i}+b) \ge M, \forall i=1,2,...,p. 
+\end{gather}
+If we scale this equation such that $||\boldsymbol{w}||=1/M$, finding the maximal margin 
+will be equivalent to minimizing 
+\begin{gather*}
+||\boldsymbol{w}||
+\end{gather*}
+subject to the constraints 
+\begin{gather*}
+y_i(\boldsymbol{w^Tx_i}+b) \ge 1, \forall i.
+\end{gather*}
 
+The optimization of the hyperplane can be solved using Lagrange multipliers. 
+For each constraint formulated as $\phi_k (\boldsymbol{x})=0$, we add a Lagrange
+multiplier $\lambda _k \ge 0$ such that $\frac{\partial f}{\partial x_i}+\lambda_k \frac{\partial \phi }{\partial x_i}=0$,
+where $f(\boldsymbol{x})$ with $x_i \epsilon [\boldsymbol{x}]$ is the function we want to minimize 
+subject to the constraints.
 
+Using the Lagrange multipliers, the optimization problem can be solved by minimizing 
+the following Lagrangian function
+\begin{equation}
+	L(\lambda ,b,\boldsymbol{w})=\frac{1}{2}\boldsymbol{w^Tw}-\sum_{i} \lambda _i[y_i(\boldsymbol{w^Tx_i}+b)]-1,\lambda _i \ge0. 
+	\label{eq:Lagrangian}
+\end{equation}
+Taking the derivatives with respect to $\boldsymbol{w}$ and $b$ we obtain the constraints 
+\begin{gather*}
+\frac{\partial L}{\partial b}=-\sum_{i} \lambda _i y_i=0,
+\quad \frac{\partial L}{\partial \boldsymbol{w} }= \boldsymbol{w} -\sum_{i} \lambda _i y_i \boldsymbol{x_i} =0.
+\end{gather*}
+Inserting these constraints in \autoref{eq:Lagrangian}, we are able to get rid 
+of the variables $\boldsymbol{w}$ and $b$ from the Lagrangian
+\begin{equation}
+L = \sum_{i} \lambda _i - \frac{1}{2}\sum_{ij}^{n} \lambda _i \lambda _j y_i y_j \boldsymbol{x_i^Tx_j},
+\label{eq:Lagrangian_lmb}
+\end{equation}
+with constraints $\lambda _i \ge 0$ and $\sum_{i} \lambda _iy_i=0$.
+Additionally, the Karush-Kuhn-Tucker condition has to be satisfied
+\begin{gather*}
+\lambda _i >0 \implies y_i(\boldsymbol{w^Tx_i}+b)=1, \quad y_i(\boldsymbol{w^Tx_i}+b)>1 \implies \lambda _i = 0,
+\end{gather*}
+such that $\lambda _i>0$ if and only if $\boldsymbol{x_i}$ is a support vector. 
 
+There is often overlap between classifications in feature space. Then, there 
+won't exist a hyperplane able to separate all the classifications. We will 
+implement two ways to deal with this problem. 
 
+The first is to introduce slack variables. The slack variables 
+$\varepsilon _i \ge  0$ allows for some misclassification of 
+the training data. The amount of misclassification is governed by the 
+slack constant $C$ which sets a bound on the sum of the slack variables.  
+Utilizing this method turns our SVM in to a so-called soft classifier as 
+opposed to a hard classifier. 
+The Lagrangian stays the same as \autoref{eq:Lagrangian_lmb}, but 
+with different constraints:
+\begin{gather*}
+	\sum_{i} \lambda _i y_i = 0, \quad 0 \le \gamma _i \le C,\\
+	\lambda _i[y_i(\boldsymbol{w^Tx_i}+b)-(1-\varepsilon _i)]=0,\\
+y_i(\boldsymbol{w^Tx_i}+b)-(1-\varepsilon _i) \ge 0.
+\end{gather*}
 
+The second method is to transform the basis of the feature space to obtain 
+better separation between classifications. This is done with a so-called 
+kernel $K$ which transforms the data in \autoref{eq:Lagrangian_lmb} by 
+\begin{gather*}
+\boldsymbol{x_i^Tx_j} \rightarrow ø(\boldsymbol{x_i})^Tø(\boldsymbol{x_j})=K(\boldsymbol{x_i,x_j}),
+\end{gather*}
+where $ø(\boldsymbol{x})$ is some transformation of the feature space.
+
+Our Lagrangian in \autoref{eq:Lagrangian_lmb} expressed as a convex optimization 
+problem in terms of a matrix equation using a kernel $K$ may be written as 
+\begin{equation}
+\frac{1}{2}\boldsymbol{\lambda ^T}
+\begin{bmatrix}
+	 y_1y_1K(\boldsymbol{x_1,x_1})  & y_1y_2K(\boldsymbol{x_1,x_2}) & \hdots & y_1y_nK(\boldsymbol{x_1,x_n}) \\
+	 y_2y_1K(\boldsymbol{x_2,x_1})  & y_2y_2K(\boldsymbol{x_2,x_2}) & \hdots & y_2y_nK(\boldsymbol{x_2,x_n}) \\
+	\vdots & \vdots & \ddots & \vdots \\
+	 y_ny_1K(\boldsymbol{x_n,x_1})  & y_ny_2K(\boldsymbol{x_n,x_2}) & \hdots & y_ny_nK(\boldsymbol{x_n,x_n}) \\
+\end{bmatrix}
+\boldsymbol{\lambda }-\mathbb{1}\boldsymbol{\lambda },
+\label{eq:Lagrangian_mateq}
+\end{equation}
+where $\mathbb{1}=[1,1,...,1]$ is $n$ dimensional. Here $\boldsymbol{\lambda }=[\lambda _1,\lambda _2,...,\lambda _n]^T$ 
+and $\boldsymbol{y}=[y_1,y_2,...,y_n]^T$. The constraints can be written as 
+$\boldsymbol{y^T\lambda }=0$, and $0 \le \lambda _i \le C$ assuming we are using 
+a slack constant $C$.  
+
+There are many popular kernels such as the Gaussian radial basis function which 
+we will use:
+\begin{equation}
+K(\boldsymbol{x_i,x_j})=exp(-\gamma ||\boldsymbol{x_i-x_j}||^2).
+\label{eq:grbf}
+\end{equation}
+Here, $\gamma $ is a constant which needs to be tuned.
+We know that the feature space transformation $ø$ defining the kernel exists based 
+on Mercer's theorem which states that if $K$ is symmetric, continuous and leads to 
+a positive semi-definite matrix $P$ defined in \autoref{eq:Lagrangian_mateq}, then 
+$ø$ exists. 
+
+To minimize \autoref{eq:Lagrangian_mateq}, we will use \verb|solvers.qp| from
+the python library \verb|cvxopt|. The solver takes the minimization problem 
+and its constraints as matrix equations:
+\begin{equation}
+	\begin{split}
+		\text{min}_{\boldsymbol{\lambda }}\quad \frac{1}{2}\boldsymbol{\lambda ^TP\lambda +q^T\lambda },\\
+	\text{subject to}\quad \boldsymbol{G \lambda  \le h}, \quad \boldsymbol{A \lambda =b}.
+	\end{split}
+	\label{eq:solver_eq}
+\end{equation}
+
+The problem in \autoref{eq:solver_eq} are defined and solved based on \autoref{eq:Lagrangian_mateq}
+in the following code:
+\begin{lstlisting}[language=Python]
+def solve(self):
+        # Solution for minimizing 
+        # (1/2) * lambda.T @ P @ lambda + q.T @ lambda 
+        # subject to constraints
+
+        y = self.y_train
+        X = self.X_train
+        n = self.X_train.shape[0]
+
+        q = -1 * np.ones(n).T
+        P = np.zeros((n, n))
+        for i in range(n):
+            for j in range(n):
+                P[i,j] = y[i] * y[j] * self.K(X[i,:], X[j,:])
+        
+        # G and h sets constraints on col vec lambda: G@lambda <= h
+        G = np.zeros((2*n, n))
+        G [:n, :] = np.identity(n) * (- 1)
+        G[n:,:] = np.identity(n)
+        h = np.zeros(2*n)
+        h[n:] = np.ones(n) * self.C
+        # A and b sets  constraints on labda: A@lambda = b
+        A = np.array(self.y_train, dtype=float).T
+        b = np.zeros(1) 
+    
+        # Solve 
+        P, q, G, h, A, b = matrix(P), matrix(q), matrix(G), matrix(h), matrix(A), matrix(b)
+        solvers.options['show_progress'] = False
+        sol = solvers.qp(P, q, G, h, A, b)
+        self.lmb = np.array(sol["x"])
+        self.lmb_non_zero_indecies = np.where(self.lmb > 1e-5)[0]
+        self.calc_b()
+\end{lstlisting}
 
 
