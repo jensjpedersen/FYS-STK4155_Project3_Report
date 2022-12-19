@@ -185,8 +185,8 @@ Therefore, we are interested in the change in impurity with respect to a node an
 child nodes. The impurity decrease also needs to take into account the number
 of samples. A feature is more important if it is able to separate more samples.       
 
-% We will use the same formula as the scikit learn python library \cite{sklearn}
-to estimate the feature importance: 
+We will use the same formula as the sci-kit learn python library 
+to estimate the feature importance (see \cite{sklearn}): 
 \begin{equation*}
     \frac{m}{M} \cdot (G  - \frac{m_{\text{left}} }{m} G_{\text{left}}+
     \frac{m_{\text{right}} }{m} G_{\text{right}}), 
