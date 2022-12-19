@@ -35,11 +35,20 @@
     validate if or prior features selection agrees with the
     results obtained with SVM.         
 
-    We found that the SVM was able to seperate all the 3 combinations of image reconstruction series 
-    studied with accuracies of $0.817$, $0.713$ and $0.756$ using their best scoring feature combinations.
+    % We found that the SVM was able to seperate all the 3 combinations of image reconstruction series 
+    % studied with accuracies of $0.817$, $0.713$ and $0.756$ using their best scoring feature combinations.
     The features performing best in SVM agreed well with the 
     features showing best sperability in the random forest and correlation analysis for two of the classification 
     combinations. 
+    The feature combination of \verb|histogram min| and \verb|glcm homogenity| produced the best
+    class separation between reconstruction methods. With the best overall accuracy of 0.817       
+    for classification of the \verb|PT_PET_EARLAC| versus \verb|PT_PET_WB_Q_CLEAR|
+    reconstruction method, indicating most dissimilarity.    
+    In a raiomics setting it's important to be
+    aware that there will be significant variation in those feature values with
+    respect to different reconstruction methods. Our methodical approach for
+    quantifying dissimilarity between reconstruction methods was not suited for
+    the problem, and should not be investigated any further.      
 
 
     % TODO: main results
