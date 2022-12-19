@@ -9,12 +9,8 @@ important data points and ignore the noise. This can increase the accuracy of
 the model and help reduce overfitting. Additionally, feature selection helps
 reduce the time and resources required to train the model, which can be
 especially helpful when dealing with large datasets.
-
-Feature selection reduces overfitting by helping to identify the most relevant
-features that are important for a model to learn from. It can help to reduce
-the complexity of a model and make it more interpretable by removing redundant
-or irrelevant features. This can also help to reduce the amount of noise in the
-data, making it easier for the model to generalize to unseen data.
+Selecting good features will make the model more interpretable by removing redundant
+or irrelevant features. 
 
 % Radiomics and identification of features  
 Radiomics is a field of medical imaging that uses advanced
@@ -31,27 +27,30 @@ Radiomics to be clinically relevant.
 A Radiomics feature should reflect the underlying pathology and not vary due to
 changes in scanner type or scanner specific parameters. Different scanner
 types, reconstruction and image processing parameters affect feature values
-differently. These parameters needs to be controlled in orderer for the field to have any
+differently. These parameters need to be controlled in order for the field to have any
 clinical relevance. 
-There is currently a high priority in the field to identify methods for
-harmonization features values. 
+
+
+% There is currently a high priority in the field to identify methods for
+% harmonization features values. 
 
 % TODO: write harmonization
-Feature harmonization in radiomics refers to the process of standardizing the
-calculation and representation of radiomic features across different imaging
-studies or datasets. This is important because radiomic features can be
-affected by various factors such as imaging modality, acquisition parameters,
-and image processing techniques, which can lead to significant variability in
-the calculated features even within a single study.
+% Feature harmonization in radiomics refers to the process of standardizing the
+% calculation and representation of radiomic features across different imaging
+% studies or datasets. This is important because radiomic features can be
+% affected by various factors such as imaging modality, acquisition parameters,
+% and image processing techniques, which can lead to significant variability in
+% the calculated features even within a single study.
 
-To address this variability, feature harmonization involves establishing
-standardized protocols for calculating and representing radiomic features that
-can be applied consistently across different studies or datasets. 
+% To address this variability, feature harmonization involves establishing
+% standardized protocols for calculating and representing radiomic features that
+% can be applied consistently across different studies or datasets. 
 
 By harmonizing the calculation and representation of radiomic features, it is
 possible to more accurately compare and analyze the features across different
 studies or datasets, enabling more reliable and reproducible results in
 radiomics research.
+
 % TODO: feature selection
 % TODO: report structure
 % robust with respect to scanner type and scanner specific parameters. Also
@@ -71,9 +70,11 @@ to discriminate between the different reconstruction methods.
 
 If a clear pattern between reconstruction algorithms exists, it may be possible to
 transform features values between different reconstruction methods. And
-therfore control for the specific reconstruction methods. In such a way that
+therefore control for the specific reconstruction methods. In such a way that
 it may be possible to define absolute standards for the interpretation of a specific
-feature value and it's significance in terms of pathology.       
+feature value and it's significance in terms of pathology. We will not try to
+harmonize the data, but rather explore if harmonization models it's worth
+exploring.  
 
 % In this project we will use simple supervised machine learning algorithms to
 % identify  
@@ -102,10 +103,14 @@ subsection \ref{sec:method_random_forest} explains how to reproduce our results
 obtained with random forest feature selection. And also comparison of our own
 implementation vs the sci-kit learn python library.  
 
-% Method SVM 
+% TODO Method SVM 
 
 
 % Results random forest
+The first part of our Discussion we present our results and discussion from
+feature selection with Random Forest and Correlation analysis.  
+
+% TODO: Discussion SVM
 
 
 % Results SVM 
