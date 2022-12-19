@@ -36,12 +36,14 @@ using only two features \verb|histogram min| and \verb|glcm homogenity| which pr
 an accuracy of $0.817$. The results classifying \verb|PT_PET_EARL2| versus \verb|PT_PET_EARLAC| showed 
 very similar results but with lower accuracy. The optimal accuracy gotten with this classification was 
 $0.713$ obtained using the same feature pair. Both classification combinations showed worse accuracy for everey 
-third feature added to the optimal pair of features. The results from the last classification combination
+third feature added to the optimal pair of features. They also showed good agreement with the best features 
+found in the random forest and correlation analysis.
+The results from the last classification combination
  \verb|PT_PET_EARL2| versus \verb|PT_PET_WB_Q_CLEAR| was quite different. We observed a more fine tuned 
  parameter selection was needed as we got more predictive power with the lowest accuracies by predicting the 
  opposite of the model. By this method we found \verb|shape convex_hull_area| and \verb|histogram max| 
  to be the feature pair giving the best accuracy $0.752$, although the analysis of this classification 
- should be repeated with better tuned parameters. 
+ should be repeated with better tuned parameters.  
 
  Comparing the results from different classification combinations, we hypothesized the \verb|PT_PET_EARLAC| 
  series to be most different and thus needs most correction. We also saw SVM was able to distinguish every series 
