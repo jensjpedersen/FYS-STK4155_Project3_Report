@@ -134,7 +134,7 @@ impurity decrease}
 \subsubsection{Classification of series PT-PET-EARLAC vs PT-PET-WB-Q-CLEAR}
 \label{sec:SVM0}
 This sub sub section provides results from the SVM classifying series 1 named \verb|PT_PET_EARLAC|
-versus seires 2 named \verb|PT_PET_WB_Q_CLEAR|. 
+versus series 2 named \verb|PT_PET_WB_Q_CLEAR|. 
 
 \begin{figure}[H]
 \centering
@@ -142,7 +142,7 @@ versus seires 2 named \verb|PT_PET_WB_Q_CLEAR|.
 \caption{Heatmap of the accuracy obtained with different slack constants $C$ and 
 GRBF kernel factors $\gamma $ in the SVM model training with all the features. The SVM accuracies are the average of $30$ cross-validation 
 cycles training and predicting test data of relative size $0.25$.
-The predicitons are wether the data belongs to series 1 or 2.}
+The predictions are wither the data belongs to series 1 or 2.}
 \label{fig:Figures-accuracy-C-gamma-0}
 \end{figure}
 \autoref{fig:Figures-accuracy-C-gamma-0} shows the accuracy of the SVM model's 
@@ -166,7 +166,7 @@ feature combination analysis.
 \caption{Heatmap of the accuracy obtained by the SVM model training on different feature pairs. The SVM accuracies are the average 
 of $20$ cross-validation cycles training and predicting test data of relative size $0.25$.
 The slack constant and GRBF kernel factor are set to $C=10^5$ and $\gamma=1 $ respectively.
- The predicitons are wether the data belongs to series 1 or 2.}
+ The predictions are wither the data belongs to series 1 or 2.}
 \label{fig:Figures-feature_pairs0}
 \end{figure}
 
@@ -194,7 +194,7 @@ feature pair combinations in the rows of \autoref{tab:expectation} seem to impro
 by the SVM model. The accuracies are the average 
 of $50$ cross-validation cycles training and predicting test data of relative size $0.25$.
 The slack constant and GRBF kernel factor are set to $C=10^5$ and $\gamma=1 $ respectively.
- The predicitons are wether the data belongs to series 1 or 2.}
+ The predictions are wither the data belongs to series 1 or 2.}
 \label{fig:Figures-third_feature0}
 \end{figure}
 
@@ -208,9 +208,10 @@ Our results suggesting this point is for our two features should again be confir
 for each third feature.  
 
 \subsubsection{Classification of series PT-PET-EARL2 vs PT-PET-WB-Q-Clear}
+\label{sec:SVM1}
 
 This sub sub section provides results from the SVM classifying series 0 named \verb|PT_PET_EARL2|
-versus seires 2 named \verb|PT_PET_WB_Q_CLEAR|. 
+versus series 2 named \verb|PT_PET_WB_Q_CLEAR|. 
 
 \begin{figure}[H]
 \centering
@@ -218,7 +219,7 @@ versus seires 2 named \verb|PT_PET_WB_Q_CLEAR|.
 \caption{Heatmap of the accuracy obtained with different slack constants $C$ and 
 GRBF kernel factors $\gamma $ in the SVM model training with all the features. The SVM accuracies are the average of $30$ cross-validation 
 cycles training and predicting test data of relative size $0.25$.
- The predicitons are wether the data belongs to series 0 or 2.}
+ The predictions are wither the data belongs to series 0 or 2.}
 
 \label{fig:Figures-accuracy-C-gamma-1}
 \end{figure}
@@ -229,7 +230,7 @@ cycles training and predicting test data of relative size $0.25$.
 \caption{Heatmap of the accuracy obtained by the SVM model training on different feature pairs. The SVM accuracies are the average 
 of $20$ cross-validation cycles training and predicting test data of relative size $0.25$.
 The slack constant and GRBF kernel factor are set to $C=100$ and $\gamma=10 $ respectively. 
- The predicitons are wether the data belongs to series 0 or 2.}
+ The predictions are wither the data belongs to series 0 or 2.}
 \label{fig:Figures-feature_pairs1}
 \end{figure}
 
@@ -240,17 +241,37 @@ The slack constant and GRBF kernel factor are set to $C=100$ and $\gamma=10 $ re
 by the SVM model. The accuracies are the average 
 of $50$ cross-validation cycles training and predicting test data of relative size $0.25$.
 The slack constant and GRBF kernel factor are set to $C=100$ and $\gamma=10 $ respectively. 
- The predicitons are wether the data belongs to series 0 or 2.}
+ The predictions are wither the data belongs to series 0 or 2.}
 \label{fig:Figures-third_feature1}
 \end{figure}
 
 \autoref{fig:Figures-accuracy-C-gamma-1}-\autoref{fig:Figures-third_feature1} shows the same figures as in \autoref{sec:SVM0}, but now 
-classifying series 0 versus seires 1.  
+classifying series 0 versus series 1 instead of series 1 versus series 2.
+
+\autoref{fig:Figures-accuracy-C-gamma-1} shows the best accuracy of $0.591$  for $C=100$ and $\gamma =10$.
+Utilizing these parameters, \autoref{fig:Figures-feature_pairs1} shows that the best feature pair accuracy $0.536$ was gotten with the feature pair 
+\verb|shape area_density| and \verb|histogram min| where the latter also gave best accuracy $0.536$ when only using one feature.
+From \autoref{fig:Figures-third_feature1}, we observe the addition of a third feature results in worse accuracy. 
+The accuracies from single and pair features in \autoref{fig:Figures-feature_pairs1} are worse than what was obtain 
+with all features. 
+
+These results suggests the need for tuning the parameters for each feature combination utilized. 
+This is especially visible in \autoref{fig:Figures-feature_pairs1} as the worst accuracies are further from accuracy $0.5$ than 
+the best accuracies. This is because a useless model would have expected accuracy $0.5$ as each classification contains 50\% of the data. 
+The trend is also visible in \autoref{fig:Figures-accuracy-C-gamma-1} such that the parameters when using all features 
+should be more fine tuned. We may actually use the feature combinations giving the worst accuracies as the most predictive combinations 
+by just classifying opposite to the model classification. Taking this into account we find 
+the feature pair \verb|shape convex_hull_area| and \verb|histogram max| as well as the single feature 
+\verb|histogram mean| to be most predictive with accuracies $1-0.248=0.752$ and $1-0.345=0.655$ respectively.  
+Also, the best most predictive parameters in \autoref{fig:Figures-accuracy-C-gamma-1} are actually $C=1$ and $\gamma =1$
+leading to a accuracy of $1-0.244=0.756$.  
+
 
 \subsubsection{Classification of series PT-PET-EARL2 vs PT-PET-EARLAC}
-
+\label{sec:SVM2}
 This sub sub section provides results from the SVM classifying series 0 named \verb|PT_PET_EARL2|
-versus seires 1 named \verb|PT_PET_EARLAC|.   
+versus series 1 named \verb|PT_PET_EARLAC| . 
+
 
 \begin{figure}[H]
 \centering
@@ -258,7 +279,7 @@ versus seires 1 named \verb|PT_PET_EARLAC|.
 \caption{Heatmap of the accuracy obtained with different slack constants $C$ and 
 GRBF kernel factors $\gamma $ in the SVM model training with all the features. The SVM accuracies are the average of $30$ cross-validation 
 cycles training and predicting test data of relative size $0.25$.
- The predicitons are wether the data belongs to series 0 or 1.}
+ The predictions are whether the data belongs to series 0 or 1.}
 \label{fig:Figures-accuracy-C-gamma-4}
 \end{figure}
 
@@ -268,7 +289,7 @@ cycles training and predicting test data of relative size $0.25$.
 \caption{Heatmap of the accuracy obtained by the SVM model training on different feature pairs. The SVM accuracies are the average 
 of $20$ cross-validation cycles training and predicting test data of relative size $0.25$.
 The slack constant and GRBF kernel factor are set to $C=10^4$ and $\gamma=1 $ respectively. 
- The predicitons are wether the data belongs to series 0 or 1.}
+ The predictions are wither the data belongs to series 0 or 1.}
 \label{fig:Figures-feature_pairs4}
 \end{figure}
 
@@ -279,10 +300,22 @@ The slack constant and GRBF kernel factor are set to $C=10^4$ and $\gamma=1 $ re
 by the SVM model. The accuracies are the average 
 of $50$ cross-validation cycles training and predicting test data of relative size $0.25$.
 The slack constant and GRBF kernel factor are set to $C=10^4$ and $\gamma=1 $ respectively.
- The predicitons are wether the data belongs to series 0 or 1.}
+ The predictions are wither the data belongs to series 0 or 1.}
 \label{fig:Figures-third_feature4}
 \end{figure}
 
+\autoref{fig:Figures-accuracy-C-gamma-4}-\autoref{Figures-third_feature4} shows the same figures as in \autoref{sec:SVM0} and \autoref{sec:SVM1}, 
+but now classifying series 0 versus series 1. From \autoref{fig:Figures-accuracy-C-gamma-4} observe the best accuracy $0.660$ for the 
+parameters $C = 10^4$ and $\gamma =1$. Similarly to the analysis classifying series 1 and series 4 in \autoref{sec:SVM0}, the best feature pair is \verb|Histogram min|
+and \verb|glcm homogeneity| and the best single feature is \verb|glcm entropy| shown in \autoref{fig:Figures-feature_pairs4}. The addition of a third feature is also similarly 
+resulting in worse accuracy as seen from \autoref{fig:Figures-third_feature4}. 
 
+\subsection{Series comparison}
 
+The results in \autoref{sec:SVM2} classifying series 0 and 1 are very similar 
+to the results in \autoref{sec:SVM0} classifying series 1 and 2 although with worse accuracy. 
+The results from \autoref{sec:SVM1} classifying series 0 and 2 are very different, as it shows 
+separation for different features. This suggest 
+that series 1 is most different and has shifts in some of its features which may be corrected to obtain similar values 
+to series 0 and 2.
 
