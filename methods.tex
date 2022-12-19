@@ -377,7 +377,7 @@ variable. The results obtained with our own implementation is listed in table
 
 
 
-\subsubsection{SVM}
+\subsection{SVM}
 Support Vector Machine (SVM) is a machine learning method used for 
 classification and regression problems. We will use SVM for binary 
 classification where the algorithm's aim is to create a $p-1$ dimensional
@@ -389,7 +389,7 @@ will therefore be the same distance from the nearest point(s) of each
 classification it divides. These points are called the support vectors.
 
 The hyperplane is defined by a $p$ dimensional weight vector $\boldsymbol{w}$ and a 
-bias term $b$
+bias term $b$ \cite{w46}
 \begin{equation}
 \boldsymbol{x^T}\boldsymbol{w} + b =0, 
 \label{eq:hyperplane}
@@ -421,7 +421,7 @@ where $f(\boldsymbol{x})$ with $x_i \epsilon [\boldsymbol{x}]$ is the function w
 subject to the constraints.
 
 Using the Lagrange multipliers, the optimization problem can be solved by minimizing 
-the following Lagrangian function
+the following Lagrangian function \cite{w46}
 \begin{equation}
 	L(\lambda ,b,\boldsymbol{w})=\frac{1}{2}\boldsymbol{w^Tw}-\sum_{i} \lambda _i[y_i(\boldsymbol{w^Tx_i}+b)]-1,\lambda _i \ge0. 
 	\label{eq:Lagrangian}
@@ -455,7 +455,7 @@ slack constant $C$ which sets a bound on the sum of the slack variables.
 Utilizing this method turns our SVM in to a so-called soft classifier as 
 opposed to a hard classifier. 
 The Lagrangian stays the same as \autoref{eq:Lagrangian_lmb}, but 
-with different constraints:
+with different constraints \cite{w46}:
 \begin{gather*}
 	\sum_{i} \lambda _i y_i = 0, \quad 0 \le \gamma _i \le C,\\
 	\lambda _i[y_i(\boldsymbol{w^Tx_i}+b)-(1-\varepsilon _i)]=0,\\
@@ -468,10 +468,12 @@ kernel $K$ which transforms the data in \autoref{eq:Lagrangian_lmb} by
 \begin{gather*}
 \boldsymbol{x_i^Tx_j} \rightarrow ø(\boldsymbol{x_i})^Tø(\boldsymbol{x_j})=K(\boldsymbol{x_i,x_j}),
 \end{gather*}
-where $ø(\boldsymbol{x})$ is some transformation of the feature space.
+where $ø(\boldsymbol{x})$ is some transformation of the feature space, often to a much 
+higher dimensional space.
 
 Our Lagrangian in \autoref{eq:Lagrangian_lmb} expressed as a convex optimization 
-problem in terms of a matrix equation using a kernel $K$ may be written as 
+problem in terms of a matrix equation using a kernel $K$ may be written as \cite{w46}
+
 \begin{equation}
 \frac{1}{2}\boldsymbol{\lambda ^T}
 \begin{bmatrix}
@@ -498,7 +500,7 @@ Here, $\gamma $ is a constant which needs to be tuned.
 We know that the feature space transformation $ø$ defining the kernel exists based 
 on Mercer's theorem which states that if $K$ is symmetric, continuous and leads to 
 a positive semi-definite matrix $P$ defined in \autoref{eq:Lagrangian_mateq}, then 
-$ø$ exists. 
+$ø$ exists \cite{w46}. 
 
 To minimize \autoref{eq:Lagrangian_mateq}, we will use \verb|solvers.qp| from
 the python library \verb|cvxopt|. The solver takes the minimization problem 
@@ -558,3 +560,10 @@ Then, we are able to predict the classification of a point $x_i$ in feature spac
 y_i = sign(b + {N_s}\sum_{j\epsilon N_s} y_j \lambda _j K(\boldsymbol{x_i,x_j})
 \end{gather*}
 
+\subsection{SVM feature analysis}
+We will explore which features that are most capable of seperating the classifications by 
+using the SVM model first on every feature pair. Then we will explore the accuracy with the addition 
+of all different third features added to the best performing feature pair. As our dataset consists of 15 
+features, this is a lot of combinations such that insted of tuning the parameters for each feature
+combination, we will just tune them using all the feature and use the resulting optimal parameters 
+for every combination. 

@@ -4,8 +4,6 @@
 \usepackage[english]{babel}
 \usepackage{graphicx, verbatim, amsmath, bbold, amsfonts, geometry, float, import, bm}
 \usepackage{siunitx} % converts expression to SI units/notation , \num{10e-10}
-\usepackage{algorithm}
-\usepackage{algpseudocode}
 % \usepackage[hidelinks]{hyperref}
 \usepackage{xcolor}
 \usepackage[colorlinks = True,
@@ -23,9 +21,6 @@
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 
-\usepackage{url}
-\urlstyle{same} % omit this command if you want monospaced-font look
-\newcommand\purl[1]{\protect\url{#1}} % "protected url"
 
 \lstdefinestyle{mystyle}{
     commentstyle=\color{codegreen},
@@ -60,11 +55,9 @@
 \input{./methods.tex}
 \input{./discussion.tex}
 \input{./conclusion.tex}
-
-\printbibliography
-
 \input{./appendix.tex}
 
 
+\printbibliography
 
 \end{document}
