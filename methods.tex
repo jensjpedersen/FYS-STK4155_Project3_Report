@@ -358,6 +358,20 @@ variable. The results obtained with our own implementation is listed in table
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Pearson correlation}
+Pearson correlation is a statistical measure of the linear relationship between
+two variables. It is used to assess the strength and direction of the
+relationship between two continuous variables.
+The Pearson correlation coefficient ranges from -1 to 1, with values closer to
+1 indicating a strong positive relationship, values closer to -1 indicating a
+strong negative relationship, and values closer to 0 indicating a weak or no
+relationship.
+
+To evaluate the correlation between features we used the 
+\verb|pandas.DataFrame.corr| functionality from the Pandas python package. We
+only considered highly positively correlated features when looking for
+redundant features.   
 
 
 
@@ -597,3 +611,4 @@ representation of each sample in both training and test set over the splits.
 Multiple cycle cross-validation is a variant of cross-validation that involves
 repeating the process multiple times, each time using a different combination
 of the data as the training and evaluation sets. 
+
