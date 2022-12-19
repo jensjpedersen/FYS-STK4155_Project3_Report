@@ -31,25 +31,54 @@ PT-PET-WB-Q-CLEAR, which generally performed poorly on all the features.
 % Main results
 
 % Discussion
-The best accuracy obtain with SVM was classifying \verb|PT_PET_EARLAC| versus \verb|PT_PET_WB_Q_CLEAR|
+The best accuracy obtained with SVM was classification of \verb|PT_PET_EARLAC| versus \verb|PT_PET_WB_Q_CLEAR|
 using only two features \verb|histogram min| and \verb|glcm homogenity| which provided 
-an accuracy of $0.817$. The results classifying \verb|PT_PET_EARL2| versus \verb|PT_PET_EARLAC| showed 
-very similar results but with lower accuracy. The optimal accuracy gotten with this classification was 
-$0.713$ obtained using the same feature pair. Both classification combinations showed worse accuracy for everey 
-third feature added to the optimal pair of features. They also showed good agreement with the best features 
-found in the random forest and correlation analysis.
+an accuracy of $0.817$. 
+
+% The results classifying \verb|PT_PET_EARL2| versus \verb|PT_PET_EARLAC| showed 
+% very similar results but with lower accuracy. 
+
+The optimal accuracy gotten for classification of  \verb|PT_PET_EARL2| versus
+\verb|PT_PET_EARLAC| was $0.713$, obtained using the same feature pair. 
+This was one of the feature pair combinations we expected to produce the best
+results with SVM, based on our prior feature selection analysis (see table \ref{tab:expectation})
+
+Both classification combinations showed worse accuracy for every 
+third feature added to the optimal pair of features. 
+
+
 The results from the last classification combination
- \verb|PT_PET_EARL2| versus \verb|PT_PET_WB_Q_CLEAR| was quite different. We observed a more fine tuned 
+ \verb|PT_PET_EARL2| versus \verb|PT_PET_WB_Q_CLEAR| was quite different. 
+ We observed a more fine tuned 
  parameter selection was needed as we got more predictive power with the lowest accuracies by predicting the 
  opposite of the model. By this method we found \verb|shape convex_hull_area| and \verb|histogram max| 
  to be the feature pair giving the best accuracy $0.752$, although the analysis of this classification 
  should be repeated with better tuned parameters.  
 
+
+ %The results from the last classification combination
+ %\verb|PT_PET_EARL2| versus \verb|PT_PET_WB_Q_CLEAR| performed poorly on all
+ %features. 
+ %We suspect that is due to    
+
  Comparing the results from different classification combinations, we hypothesized the \verb|PT_PET_EARLAC| 
- series to be most different and thus needs most correction. We also saw SVM was able to distinguish every series 
- suggesting there are transformations able to improve the similarity in every series. 
+ series to be most different from the other series. 
 
+ % We also saw SVM was able to distinguish every series 
+ % suggesting there are transformations able to improve the similarity in every series. 
 
+ We successfully was able to user feature selection techniques to identify the
+ features that produced the best class separation with SVM.     
+
+The \verb|histogram min| and \verb|glcm homogenity| features produced the best
+class separation between reconstruction methods.     
+When considering such features in a raiomics setting it's important to be
+aware that there will be significant variation in those feature values with
+respect to different reconstruction methods
+From the comparison of our accuracy score we conclude that    
+\verb|PT_PET_EARLAC| and \verb|PT_PET_WB_Q_CLEAR|
+is the least similar reconstruction methods  in terms of feature values.   
+And \verb|PT_PET_EARL2| versus \verb|PT_PET_WB_Q_CLEAR| most similar. 
 
 % XXX: write about results features 
 
@@ -64,7 +93,10 @@ VOI'S and Reconstruction methods is always known. Therefore, simpler methods
 should be utilized when analysing differences between PET reconstruction
 methods. We did not manage to find any relevant literature on how the different features compares
 with respect to the different series. Thus, the validity of the results is
-uncertain. 
+uncertain. Our feature selection methods is relevant in conjunction with SVM and
+will reduce the computational cost associated with training a model on a large
+about of features. Our methodological approach for exploring class separation
+should not be explored any further. 
  
 
 % Features selection
