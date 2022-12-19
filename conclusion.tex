@@ -1,6 +1,26 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion}
 
+% Discussion of one predictor. 
+From our feature selection analysis we identified the 5 best features in terms
+of impurity decrease. The top features was histogram min, glcm entropy, glcm
+contrast, histogram std and glcm homogeneity. 
+
+We then predicted the test accuracy with SVM. Classification of the target
+labels PT-PET-EARLAC vs PT-PET-WB-Q-CLEAR and PT-PET-EARL2 vs PT-PET-EARLAC
+with only one predictor, produced the best accuracy for the features identified
+in our prior feature selection analysis. 
+Classification of PT-PET-EARLAC vs PT-PET-BB-Q-CLEAR produced an accuracy score
+in the range 0.711-0.745. 
+Classification of PT-PET-EARL2 vs PT-PET-EARLAC produced an accuracy score in
+the range 0.644-0.680 for the above five features. 
+
+Our feature selection method was
+effective in selecting the best features for our SVM when only one predictor
+was considered. 
+This was not the case for classification of the targets PT-PET-EAR2 vs
+PT-PET-WB-Q-CLEAR, which generally performed poorly on all the features. 
+
 % Future improvements 
 % Study if standardization is possible, yes/no? Based on accuracy 
 
@@ -32,7 +52,7 @@ method is to correctly identify class labels from an unseen dataset.
 The problem of exploring class separability and choice of dataset is
 related to Jens J. Pedersen's master thesis. Thus, the motivation for the 
 unconventional use of M.L. Methods. In a medical setting the labels of the
-VOW'S and Reconstruction methods is always known. Therefore, simpler methods
+VOI'S and Reconstruction methods is always known. Therefore, simpler methods
 should be utilized when analysing differences between PET reconstruction
 methods. We did not manage to find any relevant literature on how the different features compares
 with respect to the different series. Thus, the validity of the results is
