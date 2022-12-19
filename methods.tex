@@ -4,7 +4,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Dataset} \label{sec:method_dataset} 
 
-\begin{table}
+\begin{table}[H]
     \centering
     \caption{List of all features used in analysis. The exact feature
     definitions can be found in the appendix \ref{sec:appendix_feature_definitions}}  
@@ -47,16 +47,14 @@
 \end{table}
 
 
-Our dataset and all the source code can be found in the following gihtub
-repository. 
 
 Our dataset contains 15 Radiomics features extracted on 16 different lymphom
-cancers. All the feature values can be found in the Github repository with path
+cancers. All the feature values can be found in the Github repository (\url{https://github.com/jensjpedersen/Projects_FYS-STK4155/tree/main/Project3}) with path
 \verb|./Data/big_test.csv|. The name column corresponds to the different tumors
 (Volume of Interest's), the series column contains the names of a total of six
 unique PET reconstruction methods. The analysis done in this report uses only
 tree of the six reconstruction methods, with names PT\_PET\_EARL2,
-PT\_PET\_EARLAC and PT\_PET\_WB\_Q\_CLEAR. Their will be our target class
+PT\_PET\_EARLAC and PT\_PET\_WB\_Q\_CLEAR. They will be our target class
 labels in or supervised classification methods. The respective feature names
 can be found in the feature\_name column with it's respective values in the
 value column.  
@@ -187,8 +185,8 @@ Therefore, we are interested in the change in impurity with respect to a node an
 child nodes. The impurity decrease also needs to take into account the number
 of samples. A feature is more important if it is able to separate more samples.       
 
-% We will use the same formula as the scikit learn python library \cite{sklearn}
-to estimate the feature importance: 
+We will use the same formula as the sci-kit learn python library 
+to estimate the feature importance (see \cite{sklearn}): 
 \begin{equation*}
     \frac{m}{M} \cdot (G  - \frac{m_{\text{left}} }{m} G_{\text{left}}+
     \frac{m_{\text{right}} }{m} G_{\text{right}}), 
@@ -360,6 +358,20 @@ variable. The results obtained with our own implementation is listed in table
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Pearson correlation}
+Pearson correlation is a statistical measure of the linear relationship between
+two variables. It is used to assess the strength and direction of the
+relationship between two continuous variables.
+The Pearson correlation coefficient ranges from -1 to 1, with values closer to
+1 indicating a strong positive relationship, values closer to -1 indicating a
+strong negative relationship, and values closer to 0 indicating a weak or no
+relationship.
+
+To evaluate the correlation between features we used the 
+\verb|pandas.DataFrame.corr| functionality from the Pandas python package. We
+only considered highly positively correlated features when looking for
+redundant features.   
 
 
 
@@ -377,7 +389,7 @@ variable. The results obtained with our own implementation is listed in table
 
 
 
-\subsection{SVM}
+\subsubsection{SVM}
 Support Vector Machine (SVM) is a machine learning method used for 
 classification and regression problems. We will use SVM for binary 
 classification where the algorithm's aim is to create a $p-1$ dimensional
@@ -567,3 +579,45 @@ of all different third features added to the best performing feature pair. As ou
 features, this is a lot of combinations such that insted of tuning the parameters for each feature
 combination, we will just tune them using all the feature and use the resulting optimal parameters 
 for every combination. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Cross Validation}
+We will use k-fold cross validation with multiple cycles to increase the
+precession of the test accuracy score. 
+%Section is a bit short but don't know what else to write
+The steps of k-fold cross-validation is:
+\begin{mdframed}[backgroundcolor=black!10]
+\raggedright
+
+1. Shuffle the dataset randomly.\\
+
+2. Split the dataset into $k$ groups.\\
+
+3. For each unique group:\\
+
+\hspace{1cm}a. Decide which group to use as a set for test data\\
+
+\hspace{1cm}b. Take the remaining groups as a set for training data\\
+
+\hspace{1cm}c. Fit a model on the training set and evaluate it on the test set\\
+
+\hspace{1cm}d. Retain the evaluation score and discard the model\\
+
+5. Summarize the model using the sample of model evaluation scores\\
+
+\end{mdframed}
+
+%close to lecture notes XXX: cite lec notes
+The advantage of cross-validation is that the data splitting is not done
+randomly so we don't get any unwanted influence on the model building or
+prediction evaluation. This is called a  $k$-fold cross-validation structures
+the data splitting involves dividing the samples $k$ more or less equally sized
+exhaustive and mutually exclusive subsets. In turn (at each split) one of these
+subsets plays the role of the test set while the union of the remaining subsets
+constitutes the training set. Such a splitting warrants a balanced
+representation of each sample in both training and test set over the splits. 
+
+Multiple cycle cross-validation is a variant of cross-validation that involves
+repeating the process multiple times, each time using a different combination
+of the data as the training and evaluation sets. 
+
