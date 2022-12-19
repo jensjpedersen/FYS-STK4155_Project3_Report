@@ -389,7 +389,10 @@ redundant features.
 
 
 
-\subsubsection{SVM}
+\subsection{SVM}
+\label{sec:SVM}
+\subsubsection{SVM theory}
+\label{sec:SVM_theory}
 Support Vector Machine (SVM) is a machine learning method used for 
 classification and regression problems. We will use SVM for binary 
 classification where the algorithm's aim is to create a $p-1$ dimensional
@@ -514,6 +517,8 @@ on Mercer's theorem which states that if $K$ is symmetric, continuous and leads 
 a positive semi-definite matrix $P$ defined in \autoref{eq:Lagrangian_mateq}, then 
 $ø$ exists \cite{w46}. 
 
+\subsubsection{SVM method}
+\label{sec:SVM_method}
 To minimize \autoref{eq:Lagrangian_mateq}, we will use \verb|solvers.qp| from
 the python library \verb|cvxopt|. The solver takes the minimization problem 
 and its constraints as matrix equations:
@@ -572,7 +577,6 @@ Then, we are able to predict the classification of a point $x_i$ in feature spac
 y_i = sign(b + {N_s}\sum_{j\epsilon N_s} y_j \lambda _j K(\boldsymbol{x_i,x_j})
 \end{gather*}
 
-\subsection{SVM feature analysis}
 We will explore which features that are most capable of seperating the classifications by 
 using the SVM model first on every feature pair. Then we will explore the accuracy with the addition 
 of all different third features added to the best performing feature pair. As our dataset consists of 15 
