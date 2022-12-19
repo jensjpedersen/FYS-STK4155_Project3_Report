@@ -556,3 +556,44 @@ Then, we are able to predict the classification of a point $x_i$ in feature spac
 y_i = sign(b + {N_s}\sum_{j\epsilon N_s} y_j \lambda _j K(\boldsymbol{x_i,x_j})
 \end{gather*}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Cross Validation}
+We will use k-fold cross validation with multiple cycles to increase the
+precession of the test accuracy score. 
+%Section is a bit short but don't know what else to write
+The steps of k-fold cross-validation is:
+\begin{mdframed}[backgroundcolor=black!10]
+\raggedright
+
+1. Shuffle the dataset randomly.\\
+
+2. Split the dataset into $k$ groups.\\
+
+3. For each unique group:\\
+
+\hspace{1cm}a. Decide which group to use as a set for test data\\
+
+\hspace{1cm}b. Take the remaining groups as a set for training data\\
+
+\hspace{1cm}c. Fit a model on the training set and evaluate it on the test set\\
+
+\hspace{1cm}d. Retain the evaluation score and discard the model\\
+
+5. Summarize the model using the sample of model evaluation scores\\
+
+\end{mdframed}
+
+%close to lecture notes XXX: cite lec notes
+The advantage of cross-validation is that the data splitting is not done
+randomly so we don't get any unwanted influence on the model building or
+prediction evaluation. This is called a  $k$-fold cross-validation structures
+the data splitting involves dividing the samples $k$ more or less equally sized
+exhaustive and mutually exclusive subsets. In turn (at each split) one of these
+subsets plays the role of the test set while the union of the remaining subsets
+constitutes the training set. Such a splitting warrants a balanced
+representation of each sample in both training and test set over the splits. 
+
+Multiple cycle cross-validation is a variant of cross-validation that involves
+repeating the process multiple times, each time using a different combination
+of the data as the training and evaluation sets. 
