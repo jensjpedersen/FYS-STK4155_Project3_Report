@@ -138,14 +138,18 @@ impurity decrease}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{SVM}
 
-\subsubsection{Classification of class 1 vs class 4}
+\subsubsection{Classification of series PT-PET-EARLAC vs PT-PET-WB-Q-CLEAR}
+\label{sec:SVM0}
+This sub sub section provides results from the SVM classifying series 1 named \verb|PT_PET_EARLAC|
+versus seires 2 named \verb|PT_PET_WB_Q_CLEAR|. 
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{Figures/accuracy(C,gamma)0}
 \caption{Heatmap of the accuracy obtained with different slack constants $C$ and 
 GRBF kernel factors $\gamma $ in the SVM model training with all the features. The SVM accuracies are the average of $30$ cross-validation 
-cycles training and predicting test data of relative size $0.25$.}
+cycles training and predicting test data of relative size $0.25$.
+The predicitons are wether the data belongs to series 1 or 2.}
 \label{fig:Figures-accuracy-C-gamma-0}
 \end{figure}
 \autoref{fig:Figures-accuracy-C-gamma-0} shows the accuracy of the SVM model's 
@@ -168,7 +172,8 @@ feature combination analysis.
 \makebox[\textwidth][c]{\includegraphics[width=1.2\textwidth]{Figures/feature_pairs0}}
 \caption{Heatmap of the accuracy obtained by the SVM model training on different feature pairs. The SVM accuracies are the average 
 of $20$ cross-validation cycles training and predicting test data of relative size $0.25$.
-The slack constant and GRBF kernel factor are set to $C=10^5$  $\gamma=1 $ respectively. }
+The slack constant and GRBF kernel factor are set to $C=10^5$ and $\gamma=1 $ respectively.
+ The predicitons are wether the data belongs to series 1 or 2.}
 \label{fig:Figures-feature_pairs0}
 \end{figure}
 
@@ -195,7 +200,8 @@ feature pair combinations in the rows of \autoref{tab:expectation} seem to impro
 \caption{Bar plot of the accuracy obtained adding a third feature in the data used 
 by the SVM model. The accuracies are the average 
 of $50$ cross-validation cycles training and predicting test data of relative size $0.25$.
-The slack constant and GRBF kernel factor are set to $C=10^5$  $\gamma=1 $ respectively. }
+The slack constant and GRBF kernel factor are set to $C=10^5$ and $\gamma=1 $ respectively.
+ The predicitons are wether the data belongs to series 1 or 2.}
 \label{fig:Figures-third_feature0}
 \end{figure}
 
@@ -206,15 +212,21 @@ a third feature results in worse accuracy. The optimal feature pair in got bette
 what was obtained using all the features in \autoref{fig:Figures-accuracy-C-gamma-0} for which the parameters was tuned.
 This suggest that there will be a point where adding more feature will decrease the prediction power of our model. 
 Our results suggesting this point is for our two features should again be confirmed tuning the parameters $C$ and $\gamma $ 
-for each feature combination. 
-\subsubsection{Classification of class 0 vs class 4}
+for each third feature.  
+
+\subsubsection{Classification of series PT-PET-EARL2 vs PT-PET-WB-Q-Clear}
+
+This sub sub section provides results from the SVM classifying series 0 named \verb|PT_PET_EARL2|
+versus seires 2 named \verb|PT_PET_WB_Q_CLEAR|. 
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{Figures/accuracy(C,gamma)1}
 \caption{Heatmap of the accuracy obtained with different slack constants $C$ and 
 GRBF kernel factors $\gamma $ in the SVM model training with all the features. The SVM accuracies are the average of $30$ cross-validation 
-cycles training and predicting test data of relative size $0.25$.}
+cycles training and predicting test data of relative size $0.25$.
+ The predicitons are wether the data belongs to series 0 or 2.}
+
 \label{fig:Figures-accuracy-C-gamma-1}
 \end{figure}
 
@@ -223,7 +235,8 @@ cycles training and predicting test data of relative size $0.25$.}
 \makebox[\textwidth][c]{\includegraphics[width=1.2\textwidth]{Figures/feature_pairs1}}
 \caption{Heatmap of the accuracy obtained by the SVM model training on different feature pairs. The SVM accuracies are the average 
 of $20$ cross-validation cycles training and predicting test data of relative size $0.25$.
-The slack constant and GRBF kernel factor are set to $C=100$  $\gamma=10 $ respectively. }
+The slack constant and GRBF kernel factor are set to $C=100$ and $\gamma=10 $ respectively. 
+ The predicitons are wether the data belongs to series 0 or 2.}
 \label{fig:Figures-feature_pairs1}
 \end{figure}
 
@@ -233,19 +246,26 @@ The slack constant and GRBF kernel factor are set to $C=100$  $\gamma=10 $ respe
 \caption{Bar plot of the accuracy obtained adding a third feature in the data used 
 by the SVM model. The accuracies are the average 
 of $50$ cross-validation cycles training and predicting test data of relative size $0.25$.
-The slack constant and GRBF kernel factor are set to $C=100$  $\gamma=10 $ respectively. }
+The slack constant and GRBF kernel factor are set to $C=100$ and $\gamma=10 $ respectively. 
+ The predicitons are wether the data belongs to series 0 or 2.}
 \label{fig:Figures-third_feature1}
 \end{figure}
 
+\autoref{fig:Figures-accuracy-C-gamma-1}-\autoref{fig:Figures-third_feature1} shows the same figures as in \autoref{sec:SVM0}, but now 
+classifying series 0 versus seires 1.  
 
-\subsubsection{Classification of class 0 vs class 1}
+\subsubsection{Classification of series PT-PET-EARL2 vs PT-PET-EARLAC}
+
+This sub sub section provides results from the SVM classifying series 0 named \verb|PT_PET_EARL2|
+versus seires 1 named \verb|PT_PET_EARLAC|.   
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{Figures/accuracy(C,gamma)4}
 \caption{Heatmap of the accuracy obtained with different slack constants $C$ and 
 GRBF kernel factors $\gamma $ in the SVM model training with all the features. The SVM accuracies are the average of $30$ cross-validation 
-cycles training and predicting test data of relative size $0.25$.}
+cycles training and predicting test data of relative size $0.25$.
+ The predicitons are wether the data belongs to series 0 or 1.}
 \label{fig:Figures-accuracy-C-gamma-4}
 \end{figure}
 
@@ -254,7 +274,8 @@ cycles training and predicting test data of relative size $0.25$.}
 \makebox[\textwidth][c]{\includegraphics[width=1.2\textwidth]{Figures/feature_pairs4}}
 \caption{Heatmap of the accuracy obtained by the SVM model training on different feature pairs. The SVM accuracies are the average 
 of $20$ cross-validation cycles training and predicting test data of relative size $0.25$.
-The slack constant and GRBF kernel factor are set to $C=10^4$  $\gamma=1 $ respectively. }
+The slack constant and GRBF kernel factor are set to $C=10^4$ and $\gamma=1 $ respectively. 
+ The predicitons are wether the data belongs to series 0 or 1.}
 \label{fig:Figures-feature_pairs4}
 \end{figure}
 
@@ -264,7 +285,8 @@ The slack constant and GRBF kernel factor are set to $C=10^4$  $\gamma=1 $ respe
 \caption{Bar plot of the accuracy obtained adding a third feature in the data used 
 by the SVM model. The accuracies are the average 
 of $50$ cross-validation cycles training and predicting test data of relative size $0.25$.
-The slack constant and GRBF kernel factor are set to $C=10^4$  $\gamma=1 $ respectively. }
+The slack constant and GRBF kernel factor are set to $C=10^4$ and $\gamma=1 $ respectively.
+ The predicitons are wether the data belongs to series 0 or 1.}
 \label{fig:Figures-third_feature4}
 \end{figure}
 
