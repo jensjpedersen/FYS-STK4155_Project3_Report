@@ -31,13 +31,30 @@ PT-PET-WB-Q-CLEAR, which generally performed poorly on all the features.
 % Main results
 
 % Discussion
-The best accuracy obtain with SVM was classifying \verb|PT_PET_EARLAC| versus \verb|PT_PET_WB_Q_CLEAR|
+The best accuracy obtained with SVM was classification of \verb|PT_PET_EARLAC| versus \verb|PT_PET_WB_Q_CLEAR|
 using only two features \verb|histogram min| and \verb|glcm homogenity| which provided 
-an accuracy of $0.817$. The results classifying \verb|PT_PET_EARL2| versus \verb|PT_PET_EARLAC| showed 
-very similar results but with lower accuracy. The optimal accuracy gotten with this classification was 
-$0.713$ obtained using the same feature pair. Both classification combinations showed worse accuracy for everey 
-third feature added to the optimal pair of features. The results from the last classification combination
- \verb|PT_PET_EARL2| versus \verb|PT_PET_WB_Q_CLEAR| was quite different. We observed a more fine tuned 
+an accuracy of $0.817$. 
+
+% The results classifying \verb|PT_PET_EARL2| versus \verb|PT_PET_EARLAC| showed 
+% very similar results but with lower accuracy. 
+
+The optimal accuracy gotten for classification of  \verb|PT_PET_EARL2| versus
+\verb|PT_PET_EARLAC| was $0.713$, obtained using the same feature pair. 
+This was one of the feature pair combinations we expected to produce the best
+results with SVM, based on our prior feature selection analysis (see table
+\ref{tab:expectation})
+
+Both classification combinations showed worse accuracy for every 
+third feature added to the optimal pair of features. 
+
+
+
+The results from the last classification combination
+ \verb|PT_PET_EARL2| versus \verb|PT_PET_WB_Q_CLEAR| was quite different. 
+
+
+
+ We observed a more fine tuned 
  parameter selection was needed as we got more predictive power with the lowest accuracies by predicting the 
  opposite of the model. By this method we found \verb|shape convex_hull_area| and \verb|histogram max| 
  to be the feature pair giving the best accuracy $0.752$, although the analysis of this classification 
