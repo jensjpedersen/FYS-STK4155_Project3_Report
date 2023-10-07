@@ -1,7 +1,7 @@
 
 # Content  
-* ![Random Forest Classifier written in Python](https://github.com/jensjpedersen/FYS-STK4155-Applied_Data_Analysis_and_Machine_Learning/tree/main/Project3)
-* ![Project report](./project3.pdf)
+* [Random Forest Classifier written in Python](https://github.com/jensjpedersen/FYS-STK4155-Applied_Data_Analysis_and_Machine_Learning/tree/main/Project3)
+* [Project report](./project3.pdf)
 
 # Abstract
 The goal in the field of radiomics is to establish links between diagnosis, prognosis and
